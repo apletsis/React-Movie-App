@@ -5,9 +5,15 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f3f3f5;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+button:focus,
+button:active {
+  outline: none;
+  box-shadow: none !important;
+}
+
+.dropdown-toggle::after {
+  display: none;
 }

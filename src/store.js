@@ -1,11 +1,11 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import moviesGridReducer from './modules/movies-grid/movies-grid.reducers';
+import movieAppReducer from './modules/movie-app/movie-app.reducers';
 
 // Parent of all reducers
 const rootReducer = combineReducers({
-    moviesGrid: moviesGridReducer
+    movieApp: movieAppReducer
 });
 
 // Set information to the console

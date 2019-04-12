@@ -2,25 +2,81 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .App-link {
   color: #61dafb;
+}
+
+.brand-img {
+  margin-bottom: 4px;
+}
+
+.brand-title {
+  margin: 0 0 0 10px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 40px;
+}
+
+.movie-btn {
+  background-color: transparent;
+  border: 1px solid #555b67;
+}
+
+.movie-btn:hover,
+.movie-btn:active,
+.movie-btn:visited,
+.show>.btn-primary.dropdown-toggle {
+  background-color: #fff !important;
+  border-color: #fff !important;
+  color: #343a40 !important;
+}
+
+.dropdown-menu {
+  min-width: 128px;
+  max-width: 100%;
+}
+
+.account-icon {
+  transition: transform .1s;
+}
+
+#mainContent {
+  margin-top: 50px;
+}
+
+.grid-title {
+  font-weight: bold;
+  color: #8e9094;
+  margin-bottom: 15px;
+}
+
+.show>.btn-primary.dropdown-toggle .account-icon {
+  transform: rotate(180deg);
+}
+
+.movie-card {
+  border: none;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0);
+  transition: box-shadow .3s;
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  box-shadow: 0 1rem 3rem rgba(0,0,0)
+}
+
+.card-img-overlay {
+    color: #fff;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.68);
+    top: unset; 
+}
+
+.card-title {
+  margin-bottom: 0;
 }
 
 @keyframes App-logo-spin {
