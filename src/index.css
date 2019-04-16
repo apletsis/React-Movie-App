@@ -9,7 +9,8 @@ body {
 }
 
 button:focus,
-button:active {
+button:active,
+a:focus {
   outline: none;
   box-shadow: none !important;
 }

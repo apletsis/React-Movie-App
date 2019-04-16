@@ -9,6 +9,7 @@ import * as movieHelpers from './movie-app.helpers';
 import MovieList from './movie-list/movie-list.component';
 import MediaQuery from 'react-responsive';
 import Pagination from "react-js-pagination";
+import MovieModal from './movie-modal/movie-modal.container';
 
 class MovieApp extends React.Component {
 
@@ -22,11 +23,13 @@ class MovieApp extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getNowPlaying(1);
+        this.props.getNowPlaying(this.state.activePage);
     }
+
 
     handlePageChange(pageNumber) {
         console.log(`active page is ${pageNumber}`);
+        this.props.getNowPlaying(pageNumber);
         this.setState({ activePage: pageNumber });
     }
 
@@ -37,7 +40,7 @@ class MovieApp extends React.Component {
 
         return (
             <div>
-                <Navbar bg="dark" variant="dark" className="d-flex justify-content-between align-items-center">
+                <Navbar bg="dark" variant="dark" className="d-flex justify-content-between align-items-center w-100 movie-navbar">
 
                     <Navbar.Brand href="/">
                         <img
@@ -79,16 +82,33 @@ class MovieApp extends React.Component {
                     <div className="container-fluid">
                         <MovieList movies={movies} />
                     </div>
-                    <div className="container-fluid">
-                        <Pagination
-                            activePage={this.state.activePage}
-                            itemsCountPerPage={20}
-                            totalItemsCount={totalResults}
-                            pageRangeDisplayed={3}
-                            onChange={this.handlePageChange}
-                        />
+                    <div className="container-fluid my-5">
+                        <Row>
+                            <Col>
+                                <Pagination
+                                    hideDisabled
+                                    prevPageText='Prev'
+                                    nextPageText='Next'
+                                    firstPageText='First'
+                                    lastPageText='Last'
+                                    linkClass='page-link'
+                                    linkClassFirst='rounded-left'
+                                    linkClassLast='rounded-right'
+                                    itemClassFirst='first-page'
+                                    itemClassLast='last-page'
+                                    innerClass='pagination justify-content-center'
+                                    activeLinkClass='active-page'
+                                    activePage={this.state.activePage}
+                                    totalItemsCount={totalResults}
+                                    itemsCountPerPage={20}
+                                    pageRangeDisplayed={3}
+                                    onChange={this.handlePageChange}
+                                />
+                            </Col>
+                        </Row>
                     </div>
                 </div>
+                <MovieModal />
             </div>
         );
     }
