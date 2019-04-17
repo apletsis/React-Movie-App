@@ -1,12 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { closeMovieModal } from './movie-modal.actions';
+import { openMovieModal, closeMovieModal } from './movie-modal.actions';
 import { getMovieDetails } from '../movie-app.actions';
 import * as movieHelpers from '../movie-app.helpers';
-import { Modal } from 'react-bootstrap';
+import { Modal, Button, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons'
+import { isUndefined, isNullOrUndefined } from 'util';
 
 class MovieModalContainer extends React.Component {
+
     // Triggered after property is changed
     componentWillReceiveProps(nextProps) {
         // If we will receive a new movieId
@@ -18,9 +23,23 @@ class MovieModalContainer extends React.Component {
     render() {
         const { isOpen, closeMovieModal } = this.props;
         const movie = movieHelpers.updateMoviePicturesUrls(this.props.movie);
-        const genres = (movie && movie.genres) ? movie.genres.map(genre => genre.name).join(', ') : '';
+        const movieReleaseDate = !isUndefined(movie.release_date) ? movie.release_date : undefined;
+        const rating = !isUndefined(movie.adult) ? movie.adult : undefined;
 
-        console.log(movie);
+        function formatDate(date) {
+            var monthNames = [
+                "January", "February", "March",
+                "April", "May", "June", "July",
+                "August", "September", "October",
+                "November", "December"
+            ];
+
+            var day = date.getDate();
+            var monthIndex = date.getMonth();
+            var year = date.getFullYear();
+
+            return monthNames[monthIndex] + ' ' + day + ', ' + year;
+        }
 
         return (
             <div>
@@ -28,21 +47,46 @@ class MovieModalContainer extends React.Component {
                     show={isOpen}
                     onHide={closeMovieModal}
                     size="lg"
-                    aria-labelledby="contained-modal-title-vcenter"
-                    centered
                 >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-vcenter">
-                            Modal heading
-                </Modal.Title>
+                    <Modal.Header>
+                        <Button variant="link" onClick={() => closeMovieModal()} className="modal-header-btn back">
+                            <FontAwesomeIcon icon={faChevronCircleLeft} className="modal-btn-icon" /> Back to list
+                        </Button>
+                        <Button variant="link" onClick={() => openMovieModal(329996)} className="modal-header-btn next">
+                            Next Movie <FontAwesomeIcon icon={faChevronCircleRight} className="modal-btn-icon" />
+                        </Button>
                     </Modal.Header>
                     <Modal.Body>
-                        <div>
-                            <h1>{movie.title}</h1>
-                            <h5>{genres}</h5>
-                            <p>{movie.overview}</p>
-                            <p>Popularity: {movie.popularity}</p>
-                            <p>Budget: ${movie.budget}</p>
+                        <div className="container-fluid h-100 d-flex align-items-center">
+                            <Row className="w-100">
+                                <Col xs={6} sm={6} md={6} lg={4}>
+                                    <img src={movie.poster_path} alt='movie poster' />
+                                </Col>
+                                <Col xs={6} sm={6} md={6} lg={8}>
+                                    <div className="title-wrapper d-flex justify-content-between">
+                                        <h2 className="align-self-end">{movie.title}</h2>
+                                        <Button className="movie-modal-btn">Add to favorite</Button>
+                                    </div>
+                                    <div className="description-wrapper">
+                                    <ul className="movie-info list-inline">
+                                    <li className="list-inline-item">Score: {movie.vote_average}</li>
+                                        {
+                                            (!isUndefined(rating)) ? <li className="list-inline-item">Rating: {(movie.adult) ? "R" : "PG"}</li> : ''
+                                        }
+                                        {
+                                            (!isUndefined(movieReleaseDate)) ? 
+                                                <li className="list-inline-item">Release Date: {formatDate(new Date(movieReleaseDate))}</li>
+                                                : ''
+                                        }
+                                    </ul>
+                                        {
+                                            (!isNullOrUndefined(movie.overview) && movie.overview !== "") ?
+                                                <p className="movie-overview">{movie.overview}</p>
+                                                : ''
+                                        }
+                                    </div>
+                                </Col>
+                            </Row>
                         </div>
                     </Modal.Body>
                 </Modal>
@@ -66,7 +110,7 @@ class MovieModalContainer extends React.Component {
                         /* Center and scale the image nicely */
                         background-position: center;
                         background-repeat: no-repeat;
-                        background-size: calc(100% + 40px);
+                        background-size: cover;
                      }
                 `}} />
             </div>
@@ -86,5 +130,5 @@ export default connect(
         movie: _.get(state, 'movieApp.movieDetails.response', {}),
     }),
     // Map an action to a prop, ready to be dispatched
-    { closeMovieModal, getMovieDetails }
+    { openMovieModal, closeMovieModal, getMovieDetails }
 )(MovieModalContainer);

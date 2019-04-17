@@ -18,3 +18,8 @@ a:focus {
 .dropdown-toggle::after {
   display: none;
 }
+
+.btn-link:hover {
+  text-decoration: none;
+  color: #fff;
+}

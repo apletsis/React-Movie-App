@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Navbar, Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import logo from '../../logo.png';
 import * as movieActions from './movie-app.actions';
 import * as movieHelpers from './movie-app.helpers';
@@ -10,6 +11,7 @@ import MovieList from './movie-list/movie-list.component';
 import MediaQuery from 'react-responsive';
 import Pagination from "react-js-pagination";
 import MovieModal from './movie-modal/movie-modal.container';
+import MovieFavorites from './movie-favorites/movie-favorites.component';
 
 class MovieApp extends React.Component {
 
@@ -28,7 +30,6 @@ class MovieApp extends React.Component {
 
 
     handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
         this.props.getNowPlaying(pageNumber);
         this.setState({ activePage: pageNumber });
     }
@@ -63,7 +64,7 @@ class MovieApp extends React.Component {
                             <FontAwesomeIcon icon={faChevronDown} className="account-icon" />
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Favorites</Dropdown.Item>
+                            <Dropdown.Item href="/favorites">Favorites</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
 

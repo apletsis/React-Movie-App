@@ -9,7 +9,7 @@ const movieModalReducer = createReducer({ isOpen: false, movideId: undefined }, 
     }),
     [keys.CLOSE_MOVIE_MODAL]: (state, action) => ({
         // Persist the movieId (and any other tree objects)
-        ...state,
+        // ...state,
         isOpen: false
     })
 });

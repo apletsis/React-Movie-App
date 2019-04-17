@@ -24,8 +24,8 @@ class MovieCardComponent extends React.Component {
             >
                 <Card.Img src={poster} alt="Card image" />
                 {(this.state.isMouseOver) ? (
-                    <Card.ImgOverlay>
-                        <Card.Title>{movie.title}</Card.Title>
+                    <Card.ImgOverlay className="rounded-bottom">
+                        <Card.Title className="text-truncate">{movie.title}</Card.Title>
                     </Card.ImgOverlay>
                 ) : null}
             </Card>
