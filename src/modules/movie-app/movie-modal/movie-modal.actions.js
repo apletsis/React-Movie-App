@@ -2,6 +2,7 @@
 export const keys = {
     'OPEN_MOVIE_MODAL': 'OPEN_MOVIE_MODAL',
     'CLOSE_MOVIE_MODAL': 'CLOSE_MOVIE_MODAL',
+    'NEXT_MOVIE_MODAL': 'NEXT_MOVIE_MODAL',
 }
 
 // Opens the <MovieModal /> with movieId
@@ -10,6 +11,14 @@ export const openMovieModal = (movieId) => {
         type: keys.OPEN_MOVIE_MODAL,
         movieId
     };
+}
+
+// Change movieId on "Next movie" button click
+export const nextMovieModal = (movieId) => {
+    return {
+        type: keys.NEXT_MOVIE_MODAL,
+        movieId
+    }
 }
 
 // Close the <MovieModal />

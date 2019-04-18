@@ -3,15 +3,11 @@ import { createAsyncReducer } from '../common/redux.helpers';
 import { keys as movieActionKeys } from './movie-app.actions';
 import movieModalReducer from './movie-modal/movie-modal.reducers';
 
-// This will create a new state with both the existing
-// movies and new pages of movies
+// This will create a new state with new pages of movies
 const moviesSuccessReducer = (state, action) => {
     // Create a new state object to be returned
-    // when creating the new state, be sure to include any
-    // existing properties we want to persist
     return {
         ...state,
-        isLoading: false,
         response: {
             ...action.response,
             results: [

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { openMovieModal, closeMovieModal } from './movie-modal.actions';
+import { openMovieModal, closeMovieModal, nextMovieModal } from './movie-modal.actions';
 import { getMovieDetails } from '../movie-app.actions';
 import * as movieHelpers from '../movie-app.helpers';
 import { Modal, Button, Row, Col } from 'react-bootstrap';
@@ -21,12 +21,25 @@ class MovieModalContainer extends React.Component {
     }
 
     render() {
-        const { isOpen, closeMovieModal } = this.props;
+        const { isOpen, closeMovieModal, moviesList } = this.props;
         const movie = movieHelpers.updateMoviePicturesUrls(this.props.movie);
         const movieReleaseDate = !isUndefined(movie.release_date) ? movie.release_date : undefined;
         const rating = !isUndefined(movie.adult) ? movie.adult : undefined;
+        const movies = movieHelpers.getMoviesList(moviesList.response);
 
-        function formatDate(date) {
+        const goToNextMovie = (movies) => {
+            const currentArrayIndex = movies.findIndex(x => x.id === this.props.movieId);
+            const nextIndex = currentArrayIndex + 1;
+            if (nextIndex === movies.length) {
+                // moviesList.request.page += 1;
+                console.log(this.props);
+            } else {
+                const nextMovieId = movies[nextIndex]['id'];
+                this.props.nextMovieModal(nextMovieId);
+            }
+        }
+
+        const formatDate = (date) => {
             var monthNames = [
                 "January", "February", "March",
                 "April", "May", "June", "July",
@@ -52,7 +65,7 @@ class MovieModalContainer extends React.Component {
                         <Button variant="link" onClick={() => closeMovieModal()} className="modal-header-btn back">
                             <FontAwesomeIcon icon={faChevronCircleLeft} className="modal-btn-icon" /> Back to list
                         </Button>
-                        <Button variant="link" onClick={() => openMovieModal(329996)} className="modal-header-btn next">
+                        <Button variant="link" onClick={() => goToNextMovie(movies)} className="modal-header-btn next">
                             Next Movie <FontAwesomeIcon icon={faChevronCircleRight} className="modal-btn-icon" />
                         </Button>
                     </Modal.Header>
@@ -128,7 +141,8 @@ export default connect(
         isOpen: _.get(state, 'movieApp.movieModal.isOpen', false),
         movieId: _.get(state, 'movieApp.movieModal.movieId'),
         movie: _.get(state, 'movieApp.movieDetails.response', {}),
+        moviesList: _.get(state, 'movieApp.featuredMovies', {})
     }),
     // Map an action to a prop, ready to be dispatched
-    { openMovieModal, closeMovieModal, getMovieDetails }
+    { openMovieModal, closeMovieModal, getMovieDetails, nextMovieModal }
 )(MovieModalContainer);

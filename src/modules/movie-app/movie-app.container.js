@@ -1,17 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Navbar, Dropdown } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
-import logo from '../../logo.png';
+import { Row, Col } from 'react-bootstrap';
 import * as movieActions from './movie-app.actions';
 import * as movieHelpers from './movie-app.helpers';
 import MovieList from './movie-list/movie-list.component';
-import MediaQuery from 'react-responsive';
 import Pagination from "react-js-pagination";
 import MovieModal from './movie-modal/movie-modal.container';
-import MovieFavorites from './movie-favorites/movie-favorites.component';
 
 class MovieApp extends React.Component {
 
@@ -41,34 +35,6 @@ class MovieApp extends React.Component {
 
         return (
             <div>
-                <Navbar bg="dark" variant="dark" className="d-flex justify-content-between align-items-center w-100 movie-navbar">
-
-                    <Navbar.Brand href="/">
-                        <img
-                            alt=""
-                            src={logo}
-                            width="50"
-                            height="50"
-                            className="d-inline-block brand-img"
-                        />
-                        <p className="brand-title d-inline-block">Movies</p>
-                    </Navbar.Brand>
-
-                    <Dropdown>
-                        <Dropdown.Toggle id="account-dropdown" className="movie-btn">
-
-                            <MediaQuery query="(min-device-width: 993px)">
-                                <span>My Account </span>
-                            </MediaQuery>
-
-                            <FontAwesomeIcon icon={faChevronDown} className="account-icon" />
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="/favorites">Favorites</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-
-                </Navbar>
                 <div id="mainContent">
 
                     <div className="container-fluid">

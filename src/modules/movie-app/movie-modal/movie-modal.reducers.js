@@ -5,11 +5,13 @@ import { createReducer } from '../../common/redux.helpers';
 const movieModalReducer = createReducer({ isOpen: false, movideId: undefined }, {
     [keys.OPEN_MOVIE_MODAL]: (state, action) => ({
         isOpen: true,
-        movieId: action.movieId
+        movieId: action.movieId,
+    }),
+    [keys.NEXT_MOVIE_MODAL]: (state, action) => ({
+        isOpen: true,
+        movieId: action.movieId,
     }),
     [keys.CLOSE_MOVIE_MODAL]: (state, action) => ({
-        // Persist the movieId (and any other tree objects)
-        // ...state,
         isOpen: false
     })
 });
