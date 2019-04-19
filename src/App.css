@@ -222,6 +222,20 @@
   .dropdown-menu {
     left: -85px;
   }
+
+  .movie-info {
+    font-size: 18px;
+    margin-top: 0;
+
+  }
+  
+  .movie-overview {
+    margin-top: 20px;
+  }
+
+  .movie-info li:not(:last-child) {
+    margin-bottom: 25px;
+  }
 }
 
 @media (min-width: 576px) {

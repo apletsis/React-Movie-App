@@ -16,15 +16,19 @@ class MovieApp extends React.Component {
         };
 
         this.handlePageChange = this.handlePageChange.bind(this);
+        this.handlePageChangeFromModal = this.handlePageChangeFromModal.bind(this);
     }
 
     componentDidMount() {
         this.props.getNowPlaying(this.state.activePage);
     }
 
-
     handlePageChange(pageNumber) {
         this.props.getNowPlaying(pageNumber);
+        this.setState({ activePage: pageNumber });
+    }
+
+    handlePageChangeFromModal(pageNumber) {
         this.setState({ activePage: pageNumber });
     }
 
@@ -75,7 +79,7 @@ class MovieApp extends React.Component {
                         </Row>
                     </div>
                 </div>
-                <MovieModal />
+                <MovieModal handlePageChangeFromModal={this.handlePageChangeFromModal} />
             </div>
         );
     }

@@ -17,9 +17,8 @@ const createAction = (type, actionProps) => {
     };
   }
   
-  // e.g. createAsyncActionCreator('GET_TOP_MOVIES', getTopMovies, {page: 1})
-  // I admit that passing the asyncRequestFn without params is not ideal, but 
-  // wanted to capture the requestParams as part of the start action for logging transparency
+  // e.g. createAsyncActionCreator('GET_NOW_PLAYING', getTopMovies, {page: 1})
+  // capture the requestParams as part of the start action for logging transparency
   export const createAsyncActionCreator = (actionType, asyncRequestFn, requestParams) => {
     return (dispatch) => {
       dispatch(createAction(`${actionType}_START`, {request: requestParams}));

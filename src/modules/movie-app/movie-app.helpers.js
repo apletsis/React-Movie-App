@@ -20,3 +20,7 @@ export const getMoviesList = (moviesResponse) => {
 export const getMoviesTotalResults = (moviesResponse) => {
     return !!moviesResponse ? (moviesResponse.total_results) : null;
 }
+
+export const getMoviesTotalPages = (moviesResponse) => {
+  return !!moviesResponse ? (moviesResponse.total_pages) : null;
+}

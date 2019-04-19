@@ -5,7 +5,7 @@ import movieAppReducer from './modules/movie-app/movie-app.reducers';
 
 // Parent of all reducers
 const rootReducer = combineReducers({
-    movieApp: movieAppReducer
+    movieApp: movieAppReducer,
 });
 
 // Set information to the console
