@@ -1,5 +1,4 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
 import { Navbar, Dropdown } from 'react-bootstrap';
 import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,32 +10,32 @@ import logo from './logo.png';
 const Header = () => (
     <Navbar bg="dark" variant="dark" className="d-flex justify-content-between align-items-center w-100 movie-navbar">
 
-    <Navbar.Brand href="/">
-        <img
-            alt=""
-            src={logo}
-            width="50"
-            height="50"
-            className="d-inline-block brand-img"
-        />
-        <p className="brand-title d-inline-block">Movies</p>
-    </Navbar.Brand>
+        <Navbar.Brand href="/">
+            <img
+                alt=""
+                src={logo}
+                width="50"
+                height="50"
+                className="d-inline-block brand-img"
+            />
+            <p className="brand-title d-inline-block">Movies</p>
+        </Navbar.Brand>
 
-    <Dropdown>
-        <Dropdown.Toggle id="account-dropdown" className="movie-btn">
+        <Dropdown>
+            <Dropdown.Toggle id="account-dropdown" className="movie-btn">
 
-            <MediaQuery query="(min-device-width: 993px)">
-                <span>My Account </span>
-            </MediaQuery>
+                <MediaQuery query="(min-device-width: 993px)">
+                    <span>My Account </span>
+                </MediaQuery>
 
-            <FontAwesomeIcon icon={faChevronDown} className="account-icon" />
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-                <Link to='/favorites' className="dropdown-item">Favorites</Link>
-        </Dropdown.Menu>
-    </Dropdown>
+                <FontAwesomeIcon icon={faChevronDown} className="account-icon" />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+                <Dropdown.Item href="/favorites">Favorites</Dropdown.Item>
+            </Dropdown.Menu>
+        </Dropdown>
 
-</Navbar>
+    </Navbar>
 );
 
 export default Header;

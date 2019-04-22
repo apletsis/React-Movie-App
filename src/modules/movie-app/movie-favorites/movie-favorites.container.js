@@ -30,7 +30,7 @@ class MovieFavorites extends React.Component {
     }
 }
 
-// "connect" our movie modal to the component store
+// "connect" our movie favorites to the component store
 export default connect(
     // Map nodes in our state to a properties of our component
     (state) => ({

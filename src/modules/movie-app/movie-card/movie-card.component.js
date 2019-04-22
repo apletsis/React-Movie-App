@@ -18,9 +18,9 @@ class MovieCardComponent extends React.Component {
 
         return (
             <Card className="movie-card"
-            onMouseOver={() => this.setState({isMouseOver: true})}
-            onMouseLeave={() => this.setState({isMouseOver: false})}
-            onClick={() => openMovieModal(movie.id)}
+                onMouseOver={() => this.setState({ isMouseOver: true })}
+                onMouseLeave={() => this.setState({ isMouseOver: false })}
+                onClick={() => openMovieModal(movie.id)}
             >
                 <Card.Img src={poster} alt="Card image" />
                 {(this.state.isMouseOver) ? (

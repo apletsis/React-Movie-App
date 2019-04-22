@@ -20,13 +20,13 @@
 .movie-btn {
   background-color: transparent;
   border: 1px solid #555b67;
-  color:  #9faab2;
+  color: #9faab2;
 }
 
 .movie-modal-btn {
   background-color: transparent;
   border: 1px solid #555b67;
-  color:  #9faab2;
+  color: #9faab2;
 }
 
 .movie-modal-btn:hover,
@@ -34,20 +34,20 @@
 .movie-modal-btn:visited {
   background-color: transparent !important;
   border: 1px solid #fff !important;
-  color:  #fff !important;
+  color: #fff !important;
 }
 
 .movie-btn:hover,
 .movie-btn:active,
 .movie-btn:visited,
-.show>.btn-primary.dropdown-toggle {
+.show > .btn-primary.dropdown-toggle {
   background-color: #fff !important;
   border-color: #fff !important;
   color: #343a40 !important;
 }
 
 .movie-btn:hover > .account-icon,
-.show>.btn-primary.dropdown-toggle > .account-icon {
+.show > .btn-primary.dropdown-toggle > .account-icon {
   color: #343a40;
 }
 
@@ -56,12 +56,17 @@
   max-width: 100%;
 }
 
-.account-icon {
-  transition: transform .1s;
-  color:  #9faab2;
+.dropdown-item:active {
+  background-color: transparent;
+  color: #212529;
 }
 
-#mainContent, 
+.account-icon {
+  transition: transform 0.1s;
+  color: #9faab2;
+}
+
+#mainContent,
 #favoritesContent {
   margin-top: 120px;
 }
@@ -78,29 +83,29 @@
   margin-bottom: 15px;
 }
 
-.show>.btn-primary.dropdown-toggle .account-icon {
+.show > .btn-primary.dropdown-toggle .account-icon {
   transform: rotate(180deg);
 }
 
 .movie-card {
   border: none;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0);
-  transition: box-shadow .3s;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0);
+  transition: box-shadow 0.3s;
   cursor: pointer;
 }
 
 .movie-card:hover {
-  box-shadow: 0 1rem 3rem rgba(0,0,0)
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0);
 }
 
 .card-img-overlay {
-    color: #fff;
-    height: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.68);
-    top: unset; 
+  color: #fff;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.68);
+  top: unset;
 }
 
 .card-title {
@@ -109,7 +114,7 @@
 
 .page-link {
   background-color: transparent;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   color: #a3a5ab;
 }
 
@@ -117,7 +122,8 @@
   color: #a3a5ab;
 }
 
-.last-page > .page-link, .first-page > .page-link {
+.last-page > .page-link,
+.first-page > .page-link {
   color: #18b98e;
 }
 
@@ -148,7 +154,7 @@
   height: 100%;
   background-color: transparent;
   color: #fff;
-  border: none
+  border: none;
 }
 
 .modal-header {
@@ -216,7 +222,7 @@
 
 @media (max-width: 992px) {
   .page-link {
-    padding: .5rem;
+    padding: 0.5rem;
   }
 
   .dropdown-menu {
@@ -226,9 +232,8 @@
   .movie-info {
     font-size: 18px;
     margin-top: 0;
-
   }
-  
+
   .movie-overview {
     margin-top: 20px;
   }
@@ -240,6 +245,6 @@
 
 @media (min-width: 576px) {
   .modal-lg {
-      height: calc(100% - (1.75rem + 80px));
+    height: calc(100% - (1.75rem + 80px));
   }
 }

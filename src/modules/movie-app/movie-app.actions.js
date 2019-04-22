@@ -12,11 +12,11 @@ export const getNowPlaying = (page) => createAsyncActionCreator(
     // requestFn
     movieService.getNowPlaying,
     // requestParams
-    {page}
+    { page }
 );
 
 export const getMovieDetails = (movieId) => createAsyncActionCreator(
     keys.GET_MOVIE_DETAILS,
     movieService.getMovieDetails,
-    {movieId}
+    { movieId }
 );

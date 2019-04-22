@@ -46,7 +46,7 @@ class MovieModalContainer extends React.Component {
         }
 
         const addToFavorites = (movie) => {
-            this.props.addToFavorites(movie);
+            this.props.addToFavorites(movie, favoriteList);
         }
 
         const formatDate = (date) => {
@@ -76,12 +76,12 @@ class MovieModalContainer extends React.Component {
                             <Button variant="link" onClick={() => closeMovieModal()} className="modal-header-btn back">
                                 <FontAwesomeIcon icon={faChevronCircleLeft} className="modal-btn-icon" /> Back to list
                         </Button>
-                            {(!isNullOrUndefined(moviesList.request) && moviesList.request.page === lastPage) ? '' : 
-                            <Button variant="link" onClick={() => {
-                                goToNextMovie(movies);
-                            }} className="modal-header-btn next">
-                                Next Movie <FontAwesomeIcon icon={faChevronCircleRight} className="modal-btn-icon" />
-                            </Button>}
+                            {(!isNullOrUndefined(moviesList.request) && moviesList.request.page === lastPage) ? '' :
+                                <Button variant="link" onClick={() => {
+                                    goToNextMovie(movies);
+                                }} className="modal-header-btn next">
+                                    Next Movie <FontAwesomeIcon icon={faChevronCircleRight} className="modal-btn-icon" />
+                                </Button>}
                         </MediaQuery>
                         <MediaQuery query="(max-device-width: 992px)">
                             <Button variant="link" onClick={() => closeMovieModal()} className="modal-header-btn back">
@@ -196,7 +196,7 @@ export default connect(
         // before try to access it - if it's undefined, it will return default value
         // _.get(object, 'path.to.targets[0].neat.stuff', defaultValue)
         isOpen: _.get(state, 'movieApp.movieModal.isOpen', false),
-        movieId: _.get(state, 'movieApp.movieModal.movieId'),
+        movieId: _.get(state, 'movieApp.movieModal.movieId', null),
         movie: _.get(state, 'movieApp.movieDetails.response', {}),
         moviesList: _.get(state, 'movieApp.featuredMovies', {}),
         favoriteList: _.get(state, 'movieApp.MovieFavorites.favoriteList', []),

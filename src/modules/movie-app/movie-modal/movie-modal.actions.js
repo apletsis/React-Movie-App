@@ -15,11 +15,10 @@ export const openMovieModal = (movieId) => {
 }
 
 // Change movieId on "Next movie" button click
-export const nextMovieModal = (movieId, movieList) => {
+export const nextMovieModal = (movieId) => {
     return {
         type: keys.NEXT_MOVIE_MODAL,
-        movieId,
-        movieList
+        movieId
     }
 }
 

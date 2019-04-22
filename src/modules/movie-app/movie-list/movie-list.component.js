@@ -8,7 +8,7 @@ const styles = {
     }
 }
 
-const MovieListComponent = ({movies}) => {
+const MovieListComponent = ({ movies }) => {
     const movieColumns = movies ? movies.map(movie => (
         <Col style={styles.movieColumn} key={movie.id} xs={6} sm={12} md={4} lg={2}>
             <MovieCard movie={movie} />
