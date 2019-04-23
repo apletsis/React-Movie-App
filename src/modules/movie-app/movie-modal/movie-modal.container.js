@@ -7,7 +7,7 @@ import * as movieHelpers from '../movie-app.helpers';
 import { Modal, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronCircleRight, faChevronCircleLeft, faChevronLeft, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons';
-import { isUndefined, isNullOrUndefined } from 'util';
+import { isNullOrUndefined } from 'util';
 import MediaQuery from 'react-responsive';
 
 class MovieModalContainer extends React.Component {
@@ -62,9 +62,16 @@ class MovieModalContainer extends React.Component {
             const nextMovieId = movies[nextIndex]['id'];
             this.props.nextMovieModal(nextMovieId);
         } else if (nextIndex === movies.length) {
-            const nextPage = this.props.getNowPlaying(this.props.moviesList.request.page + 1);
-            this.props.nextMovieModal(null, nextPage.response);
-            this.props.handlePageChangeFromModal(this.props.moviesList.request.page + 1);
+            console.log(this.props.moviesList);
+            if (this.props.moviesList.request.page === movieHelpers.getMoviesTotalPages(this.props.moviesList.response)) {
+                this.props.getNowPlaying(1);
+                this.props.nextMovieModal(null, 1);
+                this.props.handlePageChangeFromModal(1);
+            } else {
+                const nextPage = this.props.getNowPlaying(this.props.moviesList.request.page + 1);
+                this.props.nextMovieModal(null, nextPage.response);
+                this.props.handlePageChangeFromModal(this.props.moviesList.request.page + 1);
+            }
         } else {
             const nextMovieId = movies[nextIndex]['id'];
             this.props.nextMovieModal(nextMovieId);
@@ -95,10 +102,8 @@ class MovieModalContainer extends React.Component {
     render() {
         const { isOpen, closeMovieModal, moviesList, movies } = this.props;
         const movie = movieHelpers.updateMoviePicturesUrls(this.props.movie);
-        const movieReleaseDate = !isUndefined(movie.release_date) ? movie.release_date : undefined;
-        const rating = !isUndefined(movie.adult) ? movie.adult : undefined;
+        const movieReleaseDate = movie.release_date;
         const renderMovies = movies && movies.length ? movies : movieHelpers.getMoviesList(moviesList.response);
-        const lastPage = movieHelpers.getMoviesTotalPages(moviesList.response);
 
         return (
             <div>
@@ -111,20 +116,27 @@ class MovieModalContainer extends React.Component {
                             <Button variant="link" onClick={() => closeMovieModal()} className="modal-header-btn back">
                                 <FontAwesomeIcon icon={faChevronCircleLeft} className="modal-btn-icon" /> Back to list
                         </Button>
-                            {(!isNullOrUndefined(moviesList.request) && moviesList.request.page === lastPage) ? '' :
-                                <Button variant="link" onClick={() => {
-                                    this.goToNextMovie(renderMovies);
-                                }} className="modal-header-btn next">
+                                <Button 
+                                    variant="link" 
+                                    onClick={() => {
+                                        this.goToNextMovie(renderMovies);
+                                    }} 
+                                    className="modal-header-btn next"
+                                >
                                     Next Movie <FontAwesomeIcon icon={faChevronCircleRight} className="modal-btn-icon" />
-                                </Button>}
+                                </Button>
                         </MediaQuery>
                         <MediaQuery query="(max-device-width: 992px)">
                             <Button variant="link" onClick={() => closeMovieModal()} className="modal-header-btn back">
                                 <FontAwesomeIcon icon={faChevronLeft} className="modal-btn-icon" /> Back
                         </Button>
-                            <Button variant="link" onClick={() => {
-                                this.goToNextMovie(renderMovies);
-                            }} className="modal-header-btn next">
+                            <Button 
+                                variant="link" 
+                                onClick={() => {
+                                    this.goToNextMovie(renderMovies);
+                                }} 
+                                className="modal-header-btn next"
+                            >
                                 Next <FontAwesomeIcon icon={faChevronRight} className="modal-btn-icon" />
                             </Button>
                         </MediaQuery>
@@ -150,14 +162,8 @@ class MovieModalContainer extends React.Component {
                                         <div className="description-wrapper">
                                             <ul className="movie-info list-inline">
                                                 <li className="list-inline-item">Score: {movie.vote_average}</li>
-                                                {
-                                                    (!isUndefined(rating)) ? <li className="list-inline-item">Rating: {(movie.adult) ? "R" : "PG"}</li> : ''
-                                                }
-                                                {
-                                                    (!isUndefined(movieReleaseDate)) ?
-                                                        <li className="list-inline-item">Release Date: {this.formatDate(new Date(movieReleaseDate))}</li>
-                                                        : ''
-                                                }
+                                                <li className="list-inline-item">Rating: {(movie.adult) ? "R" : "PG"}</li>
+                                                <li className="list-inline-item">Release Date: {this.formatDate(new Date(movieReleaseDate))}</li>
                                             </ul>
                                             {
                                                 (!isNullOrUndefined(movie.overview) && movie.overview !== "") ?
@@ -172,14 +178,8 @@ class MovieModalContainer extends React.Component {
                                         <div className="title-wrapper d-flex justify-content-between">
                                             <ul className="movie-info list-unstyled mx-3">
                                                 <li className="">Score: {movie.vote_average}</li>
-                                                {
-                                                    (!isUndefined(rating)) ? <li className="">Rating: {(movie.adult) ? "R" : "PG"}</li> : ''
-                                                }
-                                                {
-                                                    (!isUndefined(movieReleaseDate)) ?
-                                                        <li className="">Release Date: {this.formatDate(new Date(movieReleaseDate))}</li>
-                                                        : ''
-                                                }
+                                                <li className="list-inline-item">Rating: {(movie.adult) ? "R" : "PG"}</li>
+                                                <li className="list-inline-item">Release Date: {this.formatDate(new Date(movieReleaseDate))}</li>
                                             </ul>
                                             <Button 
                                                 className="movie-modal-btn" 

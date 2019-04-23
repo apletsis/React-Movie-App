@@ -43,7 +43,7 @@ class MovieFavorites extends React.Component {
                 <div className="container-fluid">
                     {movieColumns}
                 </div>
-                <MovieModal movies={this.state.favoriteList} moviesList={this.state.favoriteList} />
+                <MovieModal movies={this.state.favoriteList} />
             </div>
         );
     }
