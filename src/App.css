@@ -94,8 +94,16 @@
   cursor: pointer;
 }
 
+.movie-card > .card-img-overlay {
+  display: none;
+}
+
 .movie-card:hover {
   box-shadow: 0 1rem 3rem rgba(0, 0, 0);
+}
+
+.movie-card:hover > .card-img-overlay {
+  display: flex;
 }
 
 .card-img-overlay {
@@ -191,6 +199,10 @@
 .movie-modal-btn {
   height: 40px;
   align-self: flex-start;
+}
+
+.movie-modal-btn:disabled {
+  display: none;
 }
 
 .movie-info {

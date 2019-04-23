@@ -2,11 +2,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Row, Col } from 'react-bootstrap';
-
+import { openMovieModal, closeMovieModal} from '../movie-modal/movie-modal.actions';
+import MovieFavoritesComponent from './movie-favorites.component';
+import MovieModal from '../movie-modal/movie-modal.container';
 class MovieFavorites extends React.Component {
+    state = {
+        favoriteList: []
+    };
+
+    componentDidMount() {
+        const favoriteList = JSON.parse(localStorage.getItem('Favotire List'));
+        this.setState({favoriteList});
+    };
+
+    removeFromFavorites = (movie) => {
+        const favList = JSON.parse(localStorage.getItem('Favotire List'));
+        const filteredItems = favList.filter(x => x.id !== movie.id);
+        localStorage.setItem('Favotire List', JSON.stringify(filteredItems));
+        this.setState({
+            favoriteList: filteredItems
+        })
+    }
+
     render() {
-        const { favoriteList } = this.props;
-        console.log(this.props);
+        const movieColumns = this.state.favoriteList ? this.state.favoriteList.map(movie => (
+            <MovieFavoritesComponent key={movie.id} movie={movie} removeFromFavorites={this.removeFromFavorites} />
+        )) : null;
+        
         return (
             <div id="favoritesContent">
                 <div className="container-fluid">
@@ -19,12 +41,9 @@ class MovieFavorites extends React.Component {
                     </Row>
                 </div>
                 <div className="container-fluid">
-                    {favoriteList ? favoriteList.map(favMovie => (
-                        <Col xs={6} sm={12} md={4} lg={2}>
-                            <h2>{favMovie.title}</h2>
-                        </Col>
-                    )) : null}
+                    {movieColumns}
                 </div>
+                <MovieModal movies={this.state.favoriteList} moviesList={this.state.favoriteList} />
             </div>
         );
     }
@@ -34,14 +53,14 @@ class MovieFavorites extends React.Component {
 export default connect(
     // Map nodes in our state to a properties of our component
     (state) => ({
-        // Using lodash get, recursively check that a property is defined
-        // before try to access it - if it's undefined, it will return default value
-        // _.get(object, 'path.to.targets[0].neat.stuff', defaultValue)
-        movieId: _.get(state, 'movieApp.movieModal.movieId'),
-        movie: _.get(state, 'movieApp.movieDetails.response', {}),
-        moviesList: _.get(state, 'movieApp.featuredMovies', {}),
-        favoriteList: _.get(state, 'movieApp.MovieFavorites.favoriteList', []),
-    }),
+            // Using lodash get, recursively check that a property is defined
+            // before try to access it - if it's undefined, it will return default value
+            // _.get(object, 'path.to.targets[0].neat.stuff', defaultValue)
+            // isOpen: _.get(state, 'movieApp.movieModal.isOpen', false),
+            movieId: _.get(state, 'movieApp.movieModal.movieId'),
+            movie: _.get(state, 'movieApp.movieDetails.response', {}),
+            moviesList: _.get(state, 'movieApp.featuredMovies', {}),
+        }),
     // Map an action to a prop, ready to be dispatched
-    {}
+    { openMovieModal, closeMovieModal }
 )(MovieFavorites);

@@ -2,8 +2,8 @@ import { createAsyncActionCreator } from '../common/redux.helpers';
 import * as movieService from './movie-app.service';
 
 export const keys = {
-    'GET_NOW_PLAYING': 'GET_NOW_PLAYING',
-    'GET_MOVIE_DETAILS': 'GET_MOVIE_DETAILS',
+    GET_NOW_PLAYING: 'GET_NOW_PLAYING',
+    GET_MOVIE_DETAILS: 'GET_MOVIE_DETAILS',
 };
 
 export const getNowPlaying = (page) => createAsyncActionCreator(

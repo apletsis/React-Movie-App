@@ -1,9 +1,9 @@
 // List of movie modal action type keys
 export const keys = {
-    'OPEN_MOVIE_MODAL': 'OPEN_MOVIE_MODAL',
-    'CLOSE_MOVIE_MODAL': 'CLOSE_MOVIE_MODAL',
-    'NEXT_MOVIE_MODAL': 'NEXT_MOVIE_MODAL',
-    'SAVE_TO_FAVORITE': 'SAVE_TO_FAVORITE',
+    OPEN_MOVIE_MODAL: 'OPEN_MOVIE_MODAL',
+    CLOSE_MOVIE_MODAL: 'CLOSE_MOVIE_MODAL',
+    NEXT_MOVIE_MODAL: 'NEXT_MOVIE_MODAL',
+    SAVE_TO_FAVORITE: 'SAVE_TO_FAVORITE',
 }
 
 // Opens the <MovieModal /> with movieId
@@ -29,10 +29,9 @@ export const closeMovieModal = () => {
     }
 }
 
-export const addToFavorites = (movie, favoriteList) => {
+export const addToFavorites = (movie) => {
     return {
         type: keys.SAVE_TO_FAVORITE,
-        movie,
-        favoriteList
+        movie
     }
 }

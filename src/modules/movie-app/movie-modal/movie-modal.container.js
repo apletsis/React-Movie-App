@@ -12,6 +12,18 @@ import MediaQuery from 'react-responsive';
 
 class MovieModalContainer extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            isButtonDisabled: false
+          }
+
+        this.formatDate = this.formatDate.bind(this);
+        this.goToNextMovie = this.goToNextMovie.bind(this);
+        this.addToFavorites = this.addToFavorites.bind(this);
+        this.checkIfFavorite = this.checkIfFavorite.bind(this);
+    }
+
     // Triggered after property is changed
     componentWillReceiveProps(nextProps) {
         // If we will receive a new movieId
@@ -20,55 +32,78 @@ class MovieModalContainer extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.movieId !== prevProps.movieId) {
+            this.checkIfFavorite();
+        }
+      }
+
+    formatDate(date) {
+        const monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+        ];
+
+        const day = date.getDate();
+        const monthIndex = date.getMonth();
+        const year = date.getFullYear();
+
+        return monthNames[monthIndex] + ' ' + day + ', ' + year;
+    }
+
+    goToNextMovie(movies) {
+        const currentArrayIndex = movies.findIndex(x => x.id === this.props.movieId);
+        const nextIndex = currentArrayIndex + 1;
+
+        if (nextIndex === movies.length - 1) {
+            const nextMovieId = movies[nextIndex]['id'];
+            this.props.nextMovieModal(nextMovieId);
+        } else if (nextIndex === movies.length) {
+            const nextPage = this.props.getNowPlaying(this.props.moviesList.request.page + 1);
+            this.props.nextMovieModal(null, nextPage.response);
+            this.props.handlePageChangeFromModal(this.props.moviesList.request.page + 1);
+        } else {
+            const nextMovieId = movies[nextIndex]['id'];
+            this.props.nextMovieModal(nextMovieId);
+        }
+    }
+
+    addToFavorites(movie) {
+        const prevFav = JSON.parse(localStorage.getItem('Favotire List')) || [];
+        const currFav = [...prevFav, movie];
+
+        localStorage.setItem('Favotire List', JSON.stringify(currFav));
+        this.setState({ isButtonDisabled: true });
+    }
+
+    checkIfFavorite() {
+        const currentId = this.props.movieId;
+        if (!isNullOrUndefined(currentId)) {
+            const favList = JSON.parse(localStorage.getItem('Favotire List'));
+            const inList = favList.findIndex(x => x.id === currentId);
+
+            inList !== -1 ? this.setState({ isButtonDisabled: true }) : this.setState({ isButtonDisabled: false })
+        } else {
+            this.setState({ isButtonDisabled: false });
+        }
+    }
+
+
     render() {
-        const { isOpen, closeMovieModal, moviesList, favoriteList } = this.props;
-        console.log(this.props);
+        const { isOpen, closeMovieModal, moviesList, movies } = this.props;
         const movie = movieHelpers.updateMoviePicturesUrls(this.props.movie);
         const movieReleaseDate = !isUndefined(movie.release_date) ? movie.release_date : undefined;
         const rating = !isUndefined(movie.adult) ? movie.adult : undefined;
-        const movies = movieHelpers.getMoviesList(moviesList.response);
+        const renderMovies = movies && movies.length ? movies : movieHelpers.getMoviesList(moviesList.response);
         const lastPage = movieHelpers.getMoviesTotalPages(moviesList.response);
-
-        const goToNextMovie = (movies) => {
-            const currentArrayIndex = movies.findIndex(x => x.id === this.props.movieId);
-            const nextIndex = currentArrayIndex + 1;
-            if (nextIndex === movies.length - 1) {
-                const nextMovieId = movies[nextIndex]['id'];
-                this.props.nextMovieModal(nextMovieId);
-            } else if (nextIndex === movies.length) {
-                const nextPage = this.props.getNowPlaying(moviesList.request.page + 1);
-                this.props.nextMovieModal(null, nextPage.response);
-                this.props.handlePageChangeFromModal(moviesList.request.page + 1);
-            } else {
-                const nextMovieId = movies[nextIndex]['id'];
-                this.props.nextMovieModal(nextMovieId);
-            }
-        }
-
-        const addToFavorites = (movie) => {
-            this.props.addToFavorites(movie, favoriteList);
-        }
-
-        const formatDate = (date) => {
-            var monthNames = [
-                "January", "February", "March",
-                "April", "May", "June", "July",
-                "August", "September", "October",
-                "November", "December"
-            ];
-
-            var day = date.getDate();
-            var monthIndex = date.getMonth();
-            var year = date.getFullYear();
-
-            return monthNames[monthIndex] + ' ' + day + ', ' + year;
-        }
 
         return (
             <div>
                 <Modal
                     show={isOpen}
-                    onHide={closeMovieModal}
                     size="lg"
                 >
                     <Modal.Header className="px-0 px-sm-auto">
@@ -78,7 +113,7 @@ class MovieModalContainer extends React.Component {
                         </Button>
                             {(!isNullOrUndefined(moviesList.request) && moviesList.request.page === lastPage) ? '' :
                                 <Button variant="link" onClick={() => {
-                                    goToNextMovie(movies);
+                                    this.goToNextMovie(renderMovies);
                                 }} className="modal-header-btn next">
                                     Next Movie <FontAwesomeIcon icon={faChevronCircleRight} className="modal-btn-icon" />
                                 </Button>}
@@ -88,7 +123,7 @@ class MovieModalContainer extends React.Component {
                                 <FontAwesomeIcon icon={faChevronLeft} className="modal-btn-icon" /> Back
                         </Button>
                             <Button variant="link" onClick={() => {
-                                goToNextMovie(movies);
+                                this.goToNextMovie(renderMovies);
                             }} className="modal-header-btn next">
                                 Next <FontAwesomeIcon icon={faChevronRight} className="modal-btn-icon" />
                             </Button>
@@ -104,9 +139,13 @@ class MovieModalContainer extends React.Component {
                                     <Col xs={6} sm={6} md={6} lg={8}>
                                         <div className="title-wrapper d-flex justify-content-between">
                                             <h2 className="align-self-end">{movie.title}</h2>
-                                            <Button className="movie-modal-btn" onClick={() => {
-                                                addToFavorites(movie);
-                                            }}>Add to favorite</Button>
+                                                <Button 
+                                                    className="movie-modal-btn" 
+                                                    onClick={()=> {
+                                                        this.addToFavorites(movie);
+                                                    }}
+                                                    disabled={this.state.isButtonDisabled}
+                                                >Add to favorite</Button>
                                         </div>
                                         <div className="description-wrapper">
                                             <ul className="movie-info list-inline">
@@ -116,7 +155,7 @@ class MovieModalContainer extends React.Component {
                                                 }
                                                 {
                                                     (!isUndefined(movieReleaseDate)) ?
-                                                        <li className="list-inline-item">Release Date: {formatDate(new Date(movieReleaseDate))}</li>
+                                                        <li className="list-inline-item">Release Date: {this.formatDate(new Date(movieReleaseDate))}</li>
                                                         : ''
                                                 }
                                             </ul>
@@ -138,13 +177,17 @@ class MovieModalContainer extends React.Component {
                                                 }
                                                 {
                                                     (!isUndefined(movieReleaseDate)) ?
-                                                        <li className="">Release Date: {formatDate(new Date(movieReleaseDate))}</li>
+                                                        <li className="">Release Date: {this.formatDate(new Date(movieReleaseDate))}</li>
                                                         : ''
                                                 }
                                             </ul>
-                                            <Button className="movie-modal-btn" onClick={() => {
-                                                addToFavorites(movie);
-                                            }}><FontAwesomeIcon icon={faStar} /></Button>
+                                            <Button 
+                                                className="movie-modal-btn" 
+                                                onClick={() => {
+                                                    addToFavorites(movie);
+                                                }}
+                                                disabled={this.state.isButtonDisabled}
+                                            ><FontAwesomeIcon icon={faStar} /></Button>
                                         </div>
                                     </Col>
                                     <Col xs={12} className="mt-5">
@@ -199,7 +242,6 @@ export default connect(
         movieId: _.get(state, 'movieApp.movieModal.movieId', null),
         movie: _.get(state, 'movieApp.movieDetails.response', {}),
         moviesList: _.get(state, 'movieApp.featuredMovies', {}),
-        favoriteList: _.get(state, 'movieApp.MovieFavorites.favoriteList', []),
     }),
     // Map an action to a prop, ready to be dispatched
     { openMovieModal, closeMovieModal, getMovieDetails, nextMovieModal, getNowPlaying, addToFavorites }

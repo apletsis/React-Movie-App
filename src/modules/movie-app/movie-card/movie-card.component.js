@@ -4,13 +4,6 @@ import { Card } from 'react-bootstrap';
 import { openMovieModal } from '../movie-modal/movie-modal.actions';
 
 class MovieCardComponent extends React.Component {
-    constructor(props) {
-        super(props);
-        // Check if mouse hovering over the movie card
-        this.state = {
-            isMouseOver: false,
-        };
-    }
 
     render() {
         const { movie, openMovieModal } = this.props;
@@ -23,11 +16,9 @@ class MovieCardComponent extends React.Component {
                 onClick={() => openMovieModal(movie.id)}
             >
                 <Card.Img src={poster} alt="Card image" />
-                {(this.state.isMouseOver) ? (
-                    <Card.ImgOverlay className="rounded-bottom">
-                        <Card.Title className="text-truncate">{movie.title}</Card.Title>
-                    </Card.ImgOverlay>
-                ) : null}
+                <Card.ImgOverlay className="rounded-bottom">
+                    <Card.Title className="text-truncate">{movie.title}</Card.Title>
+                </Card.ImgOverlay>
             </Card>
         );
     }
