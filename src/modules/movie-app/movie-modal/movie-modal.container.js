@@ -15,8 +15,9 @@ class MovieModalContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isButtonDisabled: false
-          }
+            isButtonDisabled: false,
+            buttonVisibility: false,
+        }
 
         this.formatDate = this.formatDate.bind(this);
         this.goToNextMovie = this.goToNextMovie.bind(this);
@@ -36,6 +37,7 @@ class MovieModalContainer extends React.Component {
         // Typical usage (don't forget to compare props):
         if (this.props.movieId !== prevProps.movieId) {
             this.checkIfFavorite();
+            prevProps.movies && prevProps.movies.length === 1 ? this.setState({ buttonVisibility: true }) : this.setState({ buttonVisibility: false })
         }
       }
 
@@ -58,21 +60,12 @@ class MovieModalContainer extends React.Component {
         const currentArrayIndex = movies.findIndex(x => x.id === this.props.movieId);
         const nextIndex = currentArrayIndex + 1;
 
-        if (nextIndex === movies.length - 1) {
+        if (nextIndex <= movies.length - 1) {
             const nextMovieId = movies[nextIndex]['id'];
             this.props.nextMovieModal(nextMovieId);
-        } else if (nextIndex === movies.length) {
-            if (movieHelpers.getMoviesTotalPages(this.props.moviesList.response) === null){
-                this.props.nextMovieModal(null, 1);
-            } else if (this.props.moviesList.request.page === movieHelpers.getMoviesTotalPages(this.props.moviesList.response)) {
-                this.props.getNowPlaying(1);
-                this.props.nextMovieModal(null, 1);
-                this.props.handlePageChangeFromModal(1);
-            } else {
-                const nextPage = this.props.getNowPlaying(this.props.moviesList.request.page + 1);
-                this.props.nextMovieModal(null, nextPage.response);
-                this.props.handlePageChangeFromModal(this.props.moviesList.request.page + 1);
-            }
+        } else if (nextIndex === movies.length || currentArrayIndex === movies.length) {
+            const nextMovieId = movies[0]['id'];
+            this.props.nextMovieModal(nextMovieId);
         } else {
             const nextMovieId = movies[nextIndex]['id'];
             this.props.nextMovieModal(nextMovieId);
@@ -116,16 +109,17 @@ class MovieModalContainer extends React.Component {
                         <MediaQuery query="(min-device-width: 993px)">
                             <Button variant="link" onClick={() => closeMovieModal()} className="modal-header-btn back">
                                 <FontAwesomeIcon icon={faChevronCircleLeft} className="modal-btn-icon" /> Back to list
-                        </Button>
-                                <Button 
-                                    variant="link" 
-                                    onClick={() => {
-                                        this.goToNextMovie(renderMovies);
-                                    }} 
-                                    className="modal-header-btn next"
-                                >
-                                    Next Movie <FontAwesomeIcon icon={faChevronCircleRight} className="modal-btn-icon" />
-                                </Button>
+                            </Button>
+                            <Button 
+                                variant="link" 
+                                onClick={() => {
+                                    this.goToNextMovie(renderMovies);
+                                    console.log(this.state.buttonVisibility)
+                                }}
+                                className={`modal-header-btn next ${this.state.buttonVisibility ? 'hidden' : ''}`}
+                            >
+                                Next Movie <FontAwesomeIcon icon={faChevronCircleRight} className="modal-btn-icon" />
+                            </Button>
                         </MediaQuery>
                         <MediaQuery query="(max-device-width: 992px)">
                             <Button variant="link" onClick={() => closeMovieModal()} className="modal-header-btn back">
@@ -137,6 +131,7 @@ class MovieModalContainer extends React.Component {
                                     this.goToNextMovie(renderMovies);
                                 }} 
                                 className="modal-header-btn next"
+                                // disabled={this.state.isButtonDisabled}
                             >
                                 Next <FontAwesomeIcon icon={faChevronRight} className="modal-btn-icon" />
                             </Button>

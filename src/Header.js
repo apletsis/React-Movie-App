@@ -4,7 +4,7 @@ import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import logo from './logo.png';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 // The Header creates links that can be used to navigate
 // between routes.

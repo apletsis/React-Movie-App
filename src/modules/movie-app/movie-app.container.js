@@ -79,7 +79,7 @@ class MovieApp extends React.Component {
                         </Row>
                     </div>
                 </div>
-                <MovieModal handlePageChangeFromModal={this.handlePageChangeFromModal} />
+                <MovieModal />
             </div>
         );
     }

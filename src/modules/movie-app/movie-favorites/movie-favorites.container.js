@@ -12,7 +12,7 @@ class MovieFavorites extends React.Component {
     componentDidMount() {
         const favoriteList = JSON.parse(localStorage.getItem('Favotire List'));
         this.setState({favoriteList});
-    };
+    }
 
     removeFromFavorites = (movie) => {
         const favList = JSON.parse(localStorage.getItem('Favotire List'));
@@ -47,7 +47,7 @@ class MovieFavorites extends React.Component {
                         </div>
                 }
                 </div>
-                <MovieModal movies={this.state.favoriteList} />
+                <MovieModal movies={this.state.favoriteList} className="favorites-modal" />
             </div>
         );
     }
