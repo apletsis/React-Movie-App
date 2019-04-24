@@ -2,13 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Row, Col } from 'react-bootstrap';
-import { openMovieModal, closeMovieModal} from '../movie-modal/movie-modal.actions';
 import MovieFavoritesComponent from './movie-favorites.component';
 import MovieModal from '../movie-modal/movie-modal.container';
 class MovieFavorites extends React.Component {
     state = {
-        favoriteList: [],
-        modalState: false,
+        favoriteList: []
     };
 
     componentDidMount() {
@@ -67,5 +65,5 @@ export default connect(
             moviesList: _.get(state, 'movieApp.featuredMovies', {}),
         }),
     // Map an action to a prop, ready to be dispatched
-    { openMovieModal, closeMovieModal }
+    {}
 )(MovieFavorites);

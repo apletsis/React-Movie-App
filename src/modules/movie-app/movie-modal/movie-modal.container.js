@@ -53,7 +53,7 @@ class MovieModalContainer extends React.Component {
 
         return monthNames[monthIndex] + ' ' + day + ', ' + year;
     }
-
+    
     goToNextMovie(movies) {
         const currentArrayIndex = movies.findIndex(x => x.id === this.props.movieId);
         const nextIndex = currentArrayIndex + 1;
@@ -62,8 +62,9 @@ class MovieModalContainer extends React.Component {
             const nextMovieId = movies[nextIndex]['id'];
             this.props.nextMovieModal(nextMovieId);
         } else if (nextIndex === movies.length) {
-            console.log(this.props.moviesList);
-            if (this.props.moviesList.request.page === movieHelpers.getMoviesTotalPages(this.props.moviesList.response)) {
+            if (movieHelpers.getMoviesTotalPages(this.props.moviesList.response) === null){
+                this.props.nextMovieModal(null, 1);
+            } else if (this.props.moviesList.request.page === movieHelpers.getMoviesTotalPages(this.props.moviesList.response)) {
                 this.props.getNowPlaying(1);
                 this.props.nextMovieModal(null, 1);
                 this.props.handlePageChangeFromModal(1);

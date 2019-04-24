@@ -32,8 +32,8 @@ const Header = () => (
                 <FontAwesomeIcon icon={faChevronDown} className="account-icon" />
             </Dropdown.Toggle>
             <Dropdown.Menu>
-                {/* <Dropdown.Item href="/favorites">Favorites</Dropdown.Item> */}
-                <Link to='/favorites' className="dropdown-item">Favorites</Link>
+                <Dropdown.Item href="/favorites">Favorites</Dropdown.Item>
+                {/* <Link to='/favorites' className="dropdown-item">Favorites</Link> */}
             </Dropdown.Menu>
         </Dropdown>
 
