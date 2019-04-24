@@ -7,7 +7,8 @@ import MovieFavoritesComponent from './movie-favorites.component';
 import MovieModal from '../movie-modal/movie-modal.container';
 class MovieFavorites extends React.Component {
     state = {
-        favoriteList: []
+        favoriteList: [],
+        modalState: false,
     };
 
     componentDidMount() {
@@ -31,7 +32,7 @@ class MovieFavorites extends React.Component {
         
         return (
             <div id="favoritesContent">
-                <div className="container-fluid">
+                <div className="container-fluid fav-page-heading">
                     <Row>
                         <Col>
                             <div className="text-left">
@@ -41,7 +42,12 @@ class MovieFavorites extends React.Component {
                     </Row>
                 </div>
                 <div className="container-fluid">
-                    {movieColumns}
+                {
+                    movieColumns.length !== 0 ? movieColumns : 
+                        <div className="text-left favorite-movie">
+                            <h5 className="grid-title">No favorites yet</h5>
+                        </div>
+                }
                 </div>
                 <MovieModal movies={this.state.favoriteList} />
             </div>
@@ -56,7 +62,6 @@ export default connect(
             // Using lodash get, recursively check that a property is defined
             // before try to access it - if it's undefined, it will return default value
             // _.get(object, 'path.to.targets[0].neat.stuff', defaultValue)
-            // isOpen: _.get(state, 'movieApp.movieModal.isOpen', false),
             movieId: _.get(state, 'movieApp.movieModal.movieId'),
             movie: _.get(state, 'movieApp.movieDetails.response', {}),
             moviesList: _.get(state, 'movieApp.featuredMovies', {}),

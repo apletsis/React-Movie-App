@@ -10,26 +10,24 @@ class MovieFavoritesComponent extends React.Component {
         const poster = (movie.poster_path.endsWith('null')) ? 'https://www.freeiconspng.com/uploads/no-image-icon-6.png' : movie.poster_path;
 
         return (
-            <Row className="mb-4">
-                <Col sm={6} md={4}>
-                    <img src={poster} className="img-fluid" alt='movie poster'
+            <Row className="mb-4 favorite-movie">
+                <Col xs={6} sm={6} md={4}>
+                    <img src={poster} className="img-fluid fav-movie-poster" alt='movie poster'
                         onClick={() => openMovieModal(movie.id)}
                     />
                 </Col>
-                <Col sm={6} md={8}>
+                <Col xs={6} sm={6} md={8}>
                     <Row>
-                        <div className="title-wrapper d-flex justify-content-between">
-                            <h2 className="align-self-end">{movie.title}</h2>
+                        <div className="title-wrapper d-flex justify-content-between w-100">
+                            <h2 className="align-self-md-start align-self-lg-end">{movie.title}</h2>
                             <Button
-                                className="movie-modal-btn"
+                                className="unfav-btn"
                                 onClick={() => {
                                     removeFromFavorites(movie);
                                 }}
                             >Unfavorite</Button>
                         </div>
-                        <div>
-                            <p className="movie-overview">{movie.overview}</p>
-                        </div>
+                        <p className="movie-overview">{movie.overview}</p>
                     </Row>
                 </Col>
             </Row>

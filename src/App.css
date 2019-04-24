@@ -223,12 +223,68 @@
   margin-top: 50px;
 }
 
+.favorite-movie .title-wrapper {
+  height: 60px;
+}
+
+.favorite-movie .title-wrapper > h2 {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.fav-movie-poster {
+  cursor: pointer;
+}
+
+.favorite-movie .movie-overview {
+  border: none;
+  text-align: left;
+  font-size: 18px;
+}
+
+.unfav-btn {
+  background-color: transparent;
+  border-color: #343a40;
+  color: #343a40;
+  height: 40px;
+}
+
+.unfav-btn:hover,
+.unfav-btn:active {
+  background-color: #343a40 !important;
+  border-color: #343a40 !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 1440px) {
+  .modal-content {
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  .fav-page-heading,
+  .favorite-movie {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #favoritesContent .grid-title {
+    margin-left: 6%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .favorite-movie {
+    padding-right: 15px;
   }
 }
 
@@ -252,6 +308,20 @@
 
   .movie-info li:not(:last-child) {
     margin-bottom: 25px;
+    border: none;
+  }
+
+  .title-wrapper {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .favorite-movie .title-wrapper > h2 {
+    font-size: 18px;
+  }
+
+  .unfav-btn {
+    width: 60%;
   }
 }
 
