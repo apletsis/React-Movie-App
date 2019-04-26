@@ -8,6 +8,7 @@ const moviesSuccessReducer = (state, action) => {
     // Create a new state object to be returned
     return {
         ...state,
+        isLoading: false,
         response: {
             ...action.response,
             results: [

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronCircleRight, faChevronCircleLeft, faChevronLeft, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons';
 import { isNullOrUndefined } from 'util';
 import MediaQuery from 'react-responsive';
-
+import Loader from '../../common/loader.component';
 class MovieModalContainer extends React.Component {
 
     constructor(props) {
@@ -94,7 +94,7 @@ class MovieModalContainer extends React.Component {
 
 
     render() {
-        const { isOpen, closeMovieModal, moviesList, movies } = this.props;
+        const { isOpen, closeMovieModal, moviesList, movies, isLoading } = this.props;
         const movie = movieHelpers.updateMoviePicturesUrls(this.props.movie);
         const movieReleaseDate = movie.release_date;
         const renderMovies = movies && movies.length ? movies : movieHelpers.getMoviesList(moviesList.response);
@@ -137,6 +137,7 @@ class MovieModalContainer extends React.Component {
                             </Button>
                         </MediaQuery>
                     </Modal.Header>
+                    <Loader isLoading={isLoading}>
                     <Modal.Body className="px-0 px-sm-auto">
                         <div className="container-fluid h-100 d-flex align-items-center">
                             <Row className="no-gutters mx-auto w-100">
@@ -198,6 +199,7 @@ class MovieModalContainer extends React.Component {
                             </Row>
                         </div>
                     </Modal.Body>
+                    </Loader>
                 </Modal>
                 <style dangerouslySetInnerHTML={{
                     __html: `
@@ -238,6 +240,7 @@ export default connect(
         movieId: _.get(state, 'movieApp.movieModal.movieId', null),
         movie: _.get(state, 'movieApp.movieDetails.response', {}),
         moviesList: _.get(state, 'movieApp.featuredMovies', {}),
+        isLoading: _.get(state, 'movieBrowser.movieDetails.isLoading', false),
     }),
     // Map an action to a prop, ready to be dispatched
     { openMovieModal, closeMovieModal, getMovieDetails, nextMovieModal, getNowPlaying, addToFavorites }
