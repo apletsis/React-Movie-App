@@ -140,6 +140,23 @@
   font-weight: bold;
 }
 
+.modal-backdrop {
+  background-color: transparent;
+  /* Add the blur effect */
+  filter: blur(20px);
+  -webkit-filter: blur(20px);
+  left: -40px;
+  right: -40px;
+  bottom: -40px;
+  top: -20px;
+  /* Full height */
+  min-height: 100%; 
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .modal-backdrop.show {
   opacity: 1;
 }

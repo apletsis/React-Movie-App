@@ -19,16 +19,12 @@ class MovieModalContainer extends React.Component {
             buttonVisibility: false,
         }
 
-        this.formatDate = this.formatDate.bind(this);
-        this.goToNextMovie = this.goToNextMovie.bind(this);
-        this.addToFavorites = this.addToFavorites.bind(this);
-        this.checkIfFavorite = this.checkIfFavorite.bind(this);
     }
 
     // Triggered after property is changed
-    componentWillReceiveProps(nextProps) {
+    static getDerivedStateFromProps(nextProps, prevProps){
         // If we will receive a new movieId
-        if (nextProps.movieId && this.props.movieId !== nextProps.movieId) {
+        if (nextProps.movieId && prevProps.movieId !== nextProps.movieId) {
             nextProps.getMovieDetails(nextProps.movieId);
         }
     }
@@ -41,7 +37,7 @@ class MovieModalContainer extends React.Component {
         }
       }
 
-    formatDate(date) {
+    formatDate = (date) => {
         const monthNames = [
             "January", "February", "March",
             "April", "May", "June", "July",
@@ -56,7 +52,7 @@ class MovieModalContainer extends React.Component {
         return monthNames[monthIndex] + ' ' + day + ', ' + year;
     }
     
-    goToNextMovie(movies) {
+    goToNextMovie = (movies) => {
         const currentArrayIndex = movies.findIndex(x => x.id === this.props.movieId);
         const nextIndex = currentArrayIndex + 1;
 
@@ -72,7 +68,7 @@ class MovieModalContainer extends React.Component {
         }
     }
 
-    addToFavorites(movie) {
+    addToFavorites = (movie) => {
         const prevFav = JSON.parse(localStorage.getItem('Favotire List')) || [];
         const currFav = [...prevFav, movie];
 
@@ -80,13 +76,14 @@ class MovieModalContainer extends React.Component {
         this.setState({ isButtonDisabled: true });
     }
 
-    checkIfFavorite() {
+    checkIfFavorite = () => {
         const currentId = this.props.movieId;
         if (!isNullOrUndefined(currentId)) {
             const favList = JSON.parse(localStorage.getItem('Favotire List'));
-            const inList = favList.findIndex(x => x.id === currentId);
-
-            inList !== -1 ? this.setState({ isButtonDisabled: true }) : this.setState({ isButtonDisabled: false })
+            if (favList) {
+                const inList = favList.findIndex(x => x.id === currentId);
+                inList !== -1 ? this.setState({ isButtonDisabled: true }) : this.setState({ isButtonDisabled: false })   
+            }
         } else {
             this.setState({ isButtonDisabled: false });
         }
@@ -112,10 +109,7 @@ class MovieModalContainer extends React.Component {
                             </Button>
                             <Button 
                                 variant="link" 
-                                onClick={() => {
-                                    this.goToNextMovie(renderMovies);
-                                    console.log(this.state.buttonVisibility)
-                                }}
+                                onClick={() => this.goToNextMovie(renderMovies) }
                                 className={`modal-header-btn next ${this.state.buttonVisibility ? 'hidden' : ''}`}
                             >
                                 Next Movie <FontAwesomeIcon icon={faChevronCircleRight} className="modal-btn-icon" />
@@ -127,9 +121,7 @@ class MovieModalContainer extends React.Component {
                         </Button>
                             <Button 
                                 variant="link" 
-                                onClick={() => {
-                                    this.goToNextMovie(renderMovies);
-                                }} 
+                                onClick={() =>  this.goToNextMovie(renderMovies) } 
                                 className="modal-header-btn next"
                                 // disabled={this.state.isButtonDisabled}
                             >
@@ -150,9 +142,7 @@ class MovieModalContainer extends React.Component {
                                             <h2 className="align-self-end">{movie.title}</h2>
                                                 <Button 
                                                     className="movie-modal-btn" 
-                                                    onClick={()=> {
-                                                        this.addToFavorites(movie);
-                                                    }}
+                                                    onClick={ () =>  this.addToFavorites(movie) }
                                                     disabled={this.state.isButtonDisabled}
                                                 >Add to favorite</Button>
                                         </div>
@@ -180,9 +170,7 @@ class MovieModalContainer extends React.Component {
                                             </ul>
                                             <Button 
                                                 className="movie-modal-btn" 
-                                                onClick={() => {
-                                                    addToFavorites(movie);
-                                                }}
+                                                onClick={() =>  addToFavorites(movie) }
                                                 disabled={this.state.isButtonDisabled}
                                             ><FontAwesomeIcon icon={faStar} /></Button>
                                         </div>
@@ -205,23 +193,6 @@ class MovieModalContainer extends React.Component {
                     __html: `
                     .modal-backdrop { 
                         background-image: url(${movie.backdrop_path});
-                        background-color: transparent;
- 
-                        /* Add the blur effect */
-                        filter: blur(20px);
-                        -webkit-filter: blur(20px);
-                        left: -40px;
-                        right: -40px;
-                        bottom: -40px;
-                        top: -20px;
-                      
-                        /* Full height */
-                        min-height: 100%; 
-                      
-                        /* Center and scale the image nicely */
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        background-size: cover;
                      }
                 `}} />
             </div>

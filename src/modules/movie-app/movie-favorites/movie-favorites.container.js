@@ -41,7 +41,7 @@ class MovieFavorites extends React.Component {
                 </div>
                 <div className="container-fluid">
                 {
-                    movieColumns.length !== 0 ? movieColumns : 
+                    movieColumns && movieColumns.length !== 0 ? movieColumns : 
                         <div className="text-left favorite-movie">
                             <h5 className="grid-title">No favorites yet</h5>
                         </div>
