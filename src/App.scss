@@ -1,0 +1,338 @@
+//colors
+$color_turquoise_blue_approx: #61dafb;
+$color_scarpa_flow_approx: #555b67;
+$color_gray_chateau_approx: #9faab2;
+$white: #fff;
+$color_tuna_approx: #343a40;
+$color_shark_approx: #212529;
+$color_mountain_mist_approx: #8e9094;
+$black_68: rgba(0, 0, 0, 0.68);
+$color_shady_lady_approx: #a3a5ab;
+$color_mountain_meadow_approx: #18b98e;
+$color_blue_dianne_65_approx: rgba(37, 64, 87, 0.65);
+
+//@extend-elements
+//original selectors
+//.movie-modal-btn:hover, .movie-modal-btn:active, .movie-modal-btn:visited
+%extend_1 {
+	background-color: transparent !important;
+	border: 1px solid $white !important;
+	color: $white !important;
+}
+
+//original selectors
+//.movie-btn:hover, .movie-btn:active, .movie-btn:visited, .show >.btn-primary.dropdown-toggle
+%extend_2 {
+	background-color: $white !important;
+	border-color: $white !important;
+	color: $color_tuna_approx !important;
+}
+
+
+.App {
+	text-align: center;
+}
+.App-link {
+	color: $color_turquoise_blue_approx;
+}
+.brand-img {
+	margin-bottom: 4px;
+}
+.brand-title {
+	margin: 0 0 0 10px;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 40px;
+}
+.movie-btn {
+	background-color: transparent;
+	border: 1px solid $color_scarpa_flow_approx;
+	color: $color_gray_chateau_approx;
+	&:hover {
+		@extend %extend_2;
+		> .account-icon {
+			color: $color_tuna_approx;
+		}
+	}
+	&:active {
+		@extend %extend_2;
+	}
+	&:visited {
+		@extend %extend_2;
+	}
+}
+.movie-modal-btn {
+	background-color: transparent;
+	border: 1px solid $color_scarpa_flow_approx;
+	color: $color_gray_chateau_approx;
+	height: 40px;
+	align-self: flex-start;
+	&:hover {
+		@extend %extend_1;
+	}
+	&:active {
+		@extend %extend_1;
+	}
+	&:visited {
+		@extend %extend_1;
+	}
+	&:disabled {
+		display: none;
+	}
+}
+.dropdown-menu {
+	min-width: 128px;
+	max-width: 100%;
+}
+.account-icon {
+	transition: transform 0.1s;
+	color: $color_gray_chateau_approx;
+}
+#mainContent {
+	margin-top: 120px;
+}
+#favoritesContent {
+	margin-top: 120px;
+}
+.movie-navbar {
+	position: fixed;
+	top: 0;
+	z-index: 99999;
+}
+.grid-title {
+	font-weight: bold;
+	color: $color_mountain_mist_approx;
+	margin-bottom: 15px;
+}
+.movie-card {
+	border: none;
+	box-shadow: 0 0.5rem 1rem rgb(0, 0, 0);
+	transition: box-shadow 0.3s;
+	cursor: pointer;
+	&:hover {
+		box-shadow: 0 1rem 3rem rgb(0, 0, 0);
+		> .card-img-overlay {
+			display: flex;
+		}
+	}
+	> .card-img-overlay {
+		display: none;
+	}
+}
+.card-img-overlay {
+	color: $white;
+	height: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: $black_68;
+	top: unset;
+}
+.card-title {
+	margin-bottom: 0;
+}
+.page-link {
+	background-color: transparent;
+	padding: 0.5rem 1rem;
+	color: $color_shady_lady_approx;
+	&:hover {
+		color: $color_shady_lady_approx;
+	}
+}
+.active-page {
+	color: $color_mountain_meadow_approx;
+	font-weight: bold;
+}
+.modal-backdrop {
+	background-color: transparent;
+	filter: blur(20px);
+	left: -40px;
+	right: -40px;
+	bottom: -40px;
+	top: -20px;
+	min-height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	&.show {
+		opacity: 1;
+	}
+}
+.modal-lg {
+	max-width: 98%;
+}
+.modal-dialog {
+	margin-top: 80px;
+}
+.modal-content {
+	height: 100%;
+	background-color: transparent;
+	color: $white;
+	border: none;
+}
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: none;
+}
+.modal-header-btn {
+	color: $color_gray_chateau_approx;
+	font-size: 20px;
+	display: flex;
+	align-items: center;
+	&.next {
+		.modal-btn-icon {
+			margin-left: 20px;
+			font-size: 16px;
+		}
+		&.hidden {
+			display: none;
+		}
+	}
+	&.back .modal-btn-icon {
+		margin-right: 20px;
+		font-size: 16px;
+	}
+}
+.title-wrapper {
+	height: 80px;
+	> h2 {
+		font-size: 40px;
+	}
+}
+.movie-info {
+	font-size: 20px;
+	margin-top: 10px;
+}
+.movie-overview {
+	border-top: 1px solid $color_gray_chateau_approx;
+	border-bottom: 1px solid $color_gray_chateau_approx;
+	padding: 20px 0;
+	margin-top: 50px;
+}
+.favorite-movie {
+	.title-wrapper {
+		height: 60px;
+		> h2 {
+			font-size: 25px;
+			font-weight: bold;
+		}
+	}
+	.movie-overview {
+		border: none;
+		text-align: left;
+		font-size: 18px;
+	}
+}
+.fav-movie-poster {
+	cursor: pointer;
+}
+.unfav-btn {
+	background-color: transparent;
+	border-color: $color_tuna_approx;
+	color: $color_tuna_approx;
+	height: 40px;
+	&:hover {
+		background-color: $color_tuna_approx !important;
+		border-color: $color_tuna_approx !important;
+	}
+	&:active {
+		background-color: $color_tuna_approx !important;
+		border-color: $color_tuna_approx !important;
+	}
+}
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+@media(min-width: 1440px) {
+	.modal-content {
+		width: 75%;
+		margin: 0 auto;
+	}
+	.fav-page-heading {
+		width: 75%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.favorite-movie {
+		width: 75%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#favoritesContent .grid-title {
+		margin-left: 6%;
+	}
+}
+@media(max-width: 1024px) {
+	.favorite-movie {
+		padding-right: 15px;
+	}
+}
+@media(max-width: 992px) {
+	.page-link {
+		padding: 0.5rem;
+	}
+	.dropdown-menu {
+		left: -85px;
+	}
+	.movie-info {
+		font-size: 18px;
+		margin-top: 0;
+		li:not(:last-child) {
+			margin-bottom: 25px;
+			border: none;
+		}
+	}
+	.movie-overview {
+		margin-top: 20px;
+	}
+	.title-wrapper {
+		flex-direction: column;
+		text-align: left;
+	}
+	.unfav-btn {
+		width: 60%;
+	}
+	.favorite-movie .title-wrapper > h2 {
+		font-size: 18px;
+	}
+}
+@media(min-width: 576px) {
+	.modal-lg {
+		height: calc(100% -(1.75rem +80px));
+	}
+}
+.show > .btn-primary.dropdown-toggle {
+	@extend %extend_2;
+	.account-icon {
+		transform: rotate(180deg);
+	}
+	> .account-icon {
+		color: $color_tuna_approx;
+	}
+}
+.dropdown-item:active {
+	background-color: transparent;
+	color: $color_shark_approx;
+}
+.last-page > .page-link {
+	color: $color_mountain_meadow_approx;
+}
+.first-page > .page-link {
+	color: $color_mountain_meadow_approx;
+}
+.modal.show {
+	padding-right: 0 !important;
+	padding-left: 0 !important;
+	background-color: $color_blue_dianne_65_approx;
+}
+.list-inline-item:not(:last-child) {
+	margin-right: 1rem;
+	border-right: 1px solid $color_gray_chateau_approx;
+	padding-right: 20px;
+}
