@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { openMovieModal, closeMovieModal, nextMovieModal, addToFavorites } from './movie-modal.actions';
-import { getMovieDetails, getNowPlaying } from '../movie-app.actions';
-import * as movieHelpers from '../movie-app.helpers';
+import { openMovieModal, closeMovieModal, nextMovieModal, addToFavorites } from '../actions/movie-modal.actions';
+import { getMovieDetails, getNowPlaying } from '../actions/movie-app.actions';
+import * as movieHelpers from '../utils/movie-app.helpers';
 import { Modal, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronCircleRight, faChevronCircleLeft, faChevronLeft, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons';
 import { isNullOrUndefined } from 'util';
 import MediaQuery from 'react-responsive';
-import Loader from '../../common/loader.component';
+import Loader from '../components/loader.component';
 class MovieModalContainer extends React.Component {
 
     constructor(props) {

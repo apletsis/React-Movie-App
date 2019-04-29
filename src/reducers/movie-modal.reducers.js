@@ -1,5 +1,5 @@
-import { keys } from './movie-modal.actions';
-import { createReducer } from '../../common/redux.helpers';
+import { keys } from '../actions/movie-modal.actions';
+import { createReducer } from '../utils/redux.helpers';
 
 // Placeholder reducer for our movie modal
 const movieModalReducer = createReducer({ isOpen: false, movideId: undefined}, {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'react-bootstrap';
-import { openMovieModal } from '../movie-modal/movie-modal.actions';
+import { openMovieModal } from '../actions/movie-modal.actions';
 
 class MovieCardComponent extends React.Component {
 

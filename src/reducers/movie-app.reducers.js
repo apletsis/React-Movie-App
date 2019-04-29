@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { createAsyncReducer } from '../common/redux.helpers';
-import { keys as movieActionKeys } from './movie-app.actions';
-import movieModalReducer from './movie-modal/movie-modal.reducers';
+import { createAsyncReducer } from '../utils/redux.helpers';
+import { keys as movieActionKeys } from '../actions/movie-app.actions';
+import movieModalReducer from '../reducers/movie-modal.reducers';
 
 // This will create a new state with new pages of movies
 const moviesSuccessReducer = (state, action) => {

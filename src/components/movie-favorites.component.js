@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Button } from 'react-bootstrap';
-import { openMovieModal } from '../movie-modal/movie-modal.actions';
+import { openMovieModal } from '../actions/movie-modal.actions';
 
 class MovieFavoritesComponent extends React.Component {
 

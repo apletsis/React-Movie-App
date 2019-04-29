@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import MovieCard from '../movie-card/movie-card.component';
-import LoaderComponent from '../../common/loader.component';
+import MovieCard from './movie-card.component';
+import LoaderComponent from './loader.component';
 
 const styles = {
     movieColumn: {

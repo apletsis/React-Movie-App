@@ -1,5 +1,5 @@
-import { createAsyncActionCreator } from '../common/redux.helpers';
-import * as movieService from './movie-app.service';
+import { createAsyncActionCreator } from '../utils/redux.helpers';
+import * as movieService from '../utils/movie-app.service';
 
 export const keys = {
     GET_NOW_PLAYING: 'GET_NOW_PLAYING',

@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
-import * as movieActions from './movie-app.actions';
-import * as movieHelpers from './movie-app.helpers';
-import MovieList from './movie-list/movie-list.component';
+import * as movieActions from '../actions/movie-app.actions';
+import * as movieHelpers from '../utils/movie-app.helpers';
+import MovieList from '../components/movie-list.component';
 import Pagination from "react-js-pagination";
-import MovieModal from './movie-modal/movie-modal.container';
+import MovieModal from './movie-modal.container';
 
 class MovieApp extends React.Component {
 

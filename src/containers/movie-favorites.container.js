@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Row, Col } from 'react-bootstrap';
-import MovieFavoritesComponent from './movie-favorites.component';
-import MovieModal from '../movie-modal/movie-modal.container';
+import MovieFavoritesComponent from '../components/movie-favorites.component';
+import MovieModal from './movie-modal.container';
 class MovieFavorites extends React.Component {
     state = {
         favoriteList: []
