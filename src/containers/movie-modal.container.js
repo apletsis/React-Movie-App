@@ -27,6 +27,7 @@ class MovieModalContainer extends React.Component {
         if (nextProps.movieId && prevProps.movieId !== nextProps.movieId) {
             nextProps.getMovieDetails(nextProps.movieId);
         }
+        return nextProps;
     }
 
     componentDidUpdate(prevProps) {

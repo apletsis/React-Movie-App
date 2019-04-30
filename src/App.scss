@@ -88,7 +88,9 @@ $color_blue_dianne_65_approx: rgba(37, 64, 87, 0.65);
 	transition: transform 0.1s;
 	color: $color_gray_chateau_approx;
 }
-#mainContent {
+#mainContent,
+#favoritesContent,
+#loginPage {
 	margin-top: 120px;
 }
 #favoritesContent {

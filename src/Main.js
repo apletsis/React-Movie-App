@@ -2,6 +2,8 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import MovieApp from './containers/movie-app.container';
 import MovieFavorites from './containers/movie-favorites.container';
+import PrivateRoute from './utils/PrivateRoute';
+import Login from './utils/Login';
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -12,7 +14,8 @@ const Main = () => (
   <main>
     <Switch>
       <Route exact path='/' component={MovieApp}/>
-      <Route path='/favorites' component={MovieFavorites}/>
+      <Route path="/login" component={Login} />
+      <PrivateRoute path="/favorites" component={MovieFavorites} />
     </Switch>
   </main>
 )
