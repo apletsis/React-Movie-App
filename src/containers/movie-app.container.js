@@ -28,7 +28,6 @@ class MovieApp extends React.Component {
 
     render() {
         const { featuredMovies, isLoading } = this.props;
-        console.log(isLoading);
         const movies = movieHelpers.getMoviesList(featuredMovies.response);
         const totalResults = movieHelpers.getMoviesTotalResults(featuredMovies.response);
 
