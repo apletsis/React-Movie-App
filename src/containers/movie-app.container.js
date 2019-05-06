@@ -6,6 +6,7 @@ import * as movieHelpers from '../utils/movie-app.helpers';
 import MovieList from '../components/movie-list.component';
 import Pagination from "react-js-pagination";
 import MovieModal from './movie-modal.container';
+import Loader from '../components/loader.component';
 
 class MovieApp extends React.Component {
 
@@ -14,26 +15,20 @@ class MovieApp extends React.Component {
         this.state = {
             activePage: 1
         };
-
-        this.handlePageChange = this.handlePageChange.bind(this);
-        this.handlePageChangeFromModal = this.handlePageChangeFromModal.bind(this);
     }
 
     componentDidMount() {
         this.props.getNowPlaying(this.state.activePage);
     }
 
-    handlePageChange(pageNumber) {
+    handlePageChange = (pageNumber) => {
         this.props.getNowPlaying(pageNumber);
         this.setState({ activePage: pageNumber });
     }
 
-    handlePageChangeFromModal(pageNumber) {
-        this.setState({ activePage: pageNumber });
-    }
-
     render() {
-        const { featuredMovies } = this.props;
+        const { featuredMovies, isLoading } = this.props;
+        console.log(isLoading);
         const movies = movieHelpers.getMoviesList(featuredMovies.response);
         const totalResults = movieHelpers.getMoviesTotalResults(featuredMovies.response);
 
@@ -51,7 +46,9 @@ class MovieApp extends React.Component {
                         </Row>
                     </div>
                     <div className="container-fluid">
+                    <Loader isLoading={isLoading}>
                         <MovieList movies={movies} />
+                    </Loader>
                     </div>
                     <div className="container-fluid my-5">
                         <Row>
@@ -88,7 +85,8 @@ class MovieApp extends React.Component {
 export default connect(
     // Map nodes in our state to a properties of our component
     (state) => ({
-        featuredMovies: state.movieApp.featuredMovies
+        featuredMovies: state.movieApp.featuredMovies,
+        isLoading: state.movieApp.featuredMovies.isLoading,
     }),
     // Map action creators to properties of our component
     { ...movieActions }

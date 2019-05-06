@@ -99,10 +99,12 @@ class MovieModalContainer extends React.Component {
 
         return (
             <div>
+                 
                 <Modal
                     show={isOpen}
                     size="lg"
                 >
+                <Loader isLoading={isLoading}>
                     <Modal.Header className="px-0 px-sm-auto">
                         <MediaQuery query="(min-device-width: 993px)">
                             <Button variant="link" onClick={() => closeMovieModal()} className="modal-header-btn back">
@@ -130,7 +132,7 @@ class MovieModalContainer extends React.Component {
                             </Button>
                         </MediaQuery>
                     </Modal.Header>
-                    <Loader isLoading={isLoading}>
+                   
                     <Modal.Body className="px-0 px-sm-auto">
                         <div className="container-fluid h-100 d-flex align-items-center">
                             <Row className="no-gutters mx-auto w-100">
@@ -212,7 +214,7 @@ export default connect(
         movieId: _.get(state, 'movieApp.movieModal.movieId', null),
         movie: _.get(state, 'movieApp.movieDetails.response', {}),
         moviesList: _.get(state, 'movieApp.featuredMovies', {}),
-        isLoading: _.get(state, 'movieBrowser.movieDetails.isLoading', false),
+        isLoading: _.get(state, 'movieApp.movieDetails.isLoading', false),
     }),
     // Map an action to a prop, ready to be dispatched
     { openMovieModal, closeMovieModal, getMovieDetails, nextMovieModal, getNowPlaying, addToFavorites }

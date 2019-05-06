@@ -14,7 +14,7 @@ const LoaderComponent = ({isLoading, children}) => {
     return (
       <RefreshIndicator
         style={styles.refreshStyle}
-        top={0}
+        top={250}
         left={0}
         size={80}
         status={'loading'} 
