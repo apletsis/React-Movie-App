@@ -2,18 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { Provider } from 'mobx-react';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 
-// import store from './store';
+import MovieAppStore from './stores/MovieAppStore';
+
+const stores = {
+  MovieAppStore,
+}
 
 ReactDOM.render(
   (
-    // <Provider store={store}>
+    <Provider {...stores}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    // </Provider>
+    </Provider>
   ),
   document.getElementById('root'));
 
