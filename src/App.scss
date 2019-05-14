@@ -255,6 +255,9 @@ $color_blue_dianne_65_approx: rgba(37, 64, 87, 0.65);
 	.modal-content {
 		width: 75%;
 		margin: 0 auto;
+		.modal-body {
+			margin-top: 50px;
+		}
 	}
 	.fav-page-heading {
 		width: 75%;

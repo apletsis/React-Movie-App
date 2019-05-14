@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react'
 import MovieListComponent from "../components/movie-list.component";
 import Pagination from "react-js-pagination";
 import Loader from '../components/loader.component';
+import MovieModal from '../containers/movie-modal.container';
 
 @inject("MovieAppStore")
 @observer
@@ -20,7 +21,6 @@ class MovieApp extends React.Component {
     async componentDidMount () {
         const { MovieAppStore } = this.props;
         const responseCallback = await MovieAppStore.getNowPlaying(this.state.activePage);
-        MovieAppStore.getNowPlaying(this.state.activePage);
         this.setState({ totalMovies: responseCallback });
     }
 
@@ -75,6 +75,7 @@ class MovieApp extends React.Component {
                             </Col>
                         </Row>
                     </div>
+                    <MovieModal />
             </div>
         );
     }
