@@ -29,13 +29,14 @@ class MovieModalContainer extends React.Component {
         return nextProps;
     }
 
-    // componentDidUpdate(prevProps) {
-    //     // Typical usage (don't forget to compare props):
-    //     if (this.props.movieId !== prevProps.movieId) {
-    //         this.checkIfFavorite();
-    //         prevProps.movies && prevProps.movies.length === 1 ? this.setState({ buttonVisibility: true }) : this.setState({ buttonVisibility: false })
-    //     }
-    // }
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        console.log(this.props.MovieAppStore.movie.id !== prevProps.MovieAppStore.movie.id);
+        if (this.props.MovieAppStore.movie.id !== prevProps.MovieAppStore.movie.id) {
+            this.checkIfFavorite();
+            prevProps.MovieAppStore.movies && prevProps.MovieAppStore.movies.length === 1 ? this.setState({ buttonVisibility: true }) : this.setState({ buttonVisibility: false })
+        }
+    }
 
     formatDate = (date) => {
         const monthNames = [
@@ -53,46 +54,48 @@ class MovieModalContainer extends React.Component {
     }
     
     goToNextMovie = (movies) => {
-        // const currentArrayIndex = movies.findIndex(x => x.id === this.props.movieId);
-        // const nextIndex = currentArrayIndex + 1;
+        const currentArrayIndex = movies.findIndex(x => x.id === this.props.MovieAppStore.movie.id);
+        const nextIndex = currentArrayIndex + 1;
 
-        // if (nextIndex <= movies.length - 1) {
-        //     const nextMovieId = movies[nextIndex]['id'];
-        //     this.props.nextMovieModal(nextMovieId);
-        // } else if (nextIndex === movies.length || currentArrayIndex === movies.length) {
-        //     const nextMovieId = movies[0]['id'];
-        //     this.props.nextMovieModal(nextMovieId);
-        // } else {
-        //     const nextMovieId = movies[nextIndex]['id'];
-        //     this.props.nextMovieModal(nextMovieId);
-        // }
+        if (nextIndex <= movies.length - 1) {
+            const nextMovieId = movies[nextIndex]['id'];
+            this.props.MovieAppStore.getMovieDetails(nextMovieId);
+        } else if (nextIndex === movies.length || currentArrayIndex === movies.length) {
+            const nextMovieId = movies[0]['id'];
+            this.props.MovieAppStore.getMovieDetails(nextMovieId);
+        } else {
+            const nextMovieId = movies[nextIndex]['id'];
+            this.props.MovieAppStore.getMovieDetails(nextMovieId);
+        }
     }
 
     addToFavorites = (movie) => {
-        // const prevFav = JSON.parse(localStorage.getItem('Favotire List')) || [];
-        // const currFav = [...prevFav, movie];
+        const prevFav = JSON.parse(localStorage.getItem('Favotire List')) || [];
+        const currFav = [...prevFav, movie];
 
-        // localStorage.setItem('Favotire List', JSON.stringify(currFav));
-        // this.setState({ isButtonDisabled: true });
+        localStorage.setItem('Favotire List', JSON.stringify(currFav));
+        this.setState({ isButtonDisabled: true });
     }
 
     checkIfFavorite = () => {
-        // const currentId = this.props.movieId;
-        // if (!isNullOrUndefined(currentId)) {
-        //     const favList = JSON.parse(localStorage.getItem('Favotire List'));
-        //     if (favList) {
-        //         const inList = favList.findIndex(x => x.id === currentId);
-        //         inList !== -1 ? this.setState({ isButtonDisabled: true }) : this.setState({ isButtonDisabled: false })   
-        //     }
-        // } else {
-        //     this.setState({ isButtonDisabled: false });
-        // }
+        const currentId = this.props.MovieAppStore.movie.id;
+        if (!isNullOrUndefined(currentId)) {
+            const favList = JSON.parse(localStorage.getItem('Favotire List'));
+            if (favList) {
+                const inList = favList.findIndex(x => x.id === currentId);
+                inList !== -1 ? this.setState({ isButtonDisabled: true }) : this.setState({ isButtonDisabled: false })   
+            }
+        } else {
+            this.setState({ isButtonDisabled: false });
+        }
     }
 
 
     render() {
-        const { isOpen, isLoading, closeMovieModal } = this.props.MovieAppStore;
+        const { isOpen, isLoading, closeMovieModal, movies } = this.props.MovieAppStore;
         const movie = this.props.MovieAppStore.updateMoviePicturesUrls(this.props.MovieAppStore.movie);
+        const renderMovies = movies;
+
         // const renderMovies = movies && movies.length ? movies : movieHelpers.getMoviesList(moviesList.response);
 
         return (
@@ -110,6 +113,7 @@ class MovieModalContainer extends React.Component {
                             </Button>
                             <Button 
                                 variant="link" 
+                                onClick={() => this.goToNextMovie(renderMovies) }
                                 className={`modal-header-btn next ${this.state.buttonVisibility ? 'hidden' : ''}`}
                             >
                                 Next Movie <FontAwesomeIcon icon={faChevronCircleRight} className="modal-btn-icon" />
@@ -120,9 +124,9 @@ class MovieModalContainer extends React.Component {
                                 <FontAwesomeIcon icon={faChevronLeft} className="modal-btn-icon" /> Back
                         </Button>
                             <Button 
-                                variant="link" 
-                                className="modal-header-btn next"
-                                // disabled={this.state.isButtonDisabled}
+                                variant="link"
+                                onClick={() => this.goToNextMovie(renderMovies) }
+                                className={`modal-header-btn next ${this.state.buttonVisibility ? 'hidden' : ''}`}
                             >
                                 Next <FontAwesomeIcon icon={faChevronRight} className="modal-btn-icon" />
                             </Button>
@@ -141,7 +145,7 @@ class MovieModalContainer extends React.Component {
                                             <h2 className="align-self-end">{movie.title}</h2>
                                                 <Button 
                                                     className="movie-modal-btn" 
-                                                    // onClick={ () =>  this.addToFavorites(movie) }
+                                                    onClick={ () =>  this.addToFavorites(movie) }
                                                     disabled={this.state.isButtonDisabled}
                                                 >Add to favorite</Button>
                                         </div>
@@ -169,7 +173,7 @@ class MovieModalContainer extends React.Component {
                                             </ul>
                                             <Button 
                                                 className="movie-modal-btn" 
-                                                // onClick={() =>  addToFavorites(movie) }
+                                                onClick={() =>  this.addToFavorites(movie) }
                                                 disabled={this.state.isButtonDisabled}
                                             ><FontAwesomeIcon icon={faStar} /></Button>
                                         </div>
