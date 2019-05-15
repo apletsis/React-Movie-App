@@ -31,7 +31,6 @@ class MovieModalContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
-        console.log(this.props.MovieAppStore.movie.id !== prevProps.MovieAppStore.movie.id);
         if (this.props.MovieAppStore.movie.id !== prevProps.MovieAppStore.movie.id) {
             this.checkIfFavorite();
             prevProps.MovieAppStore.movies && prevProps.MovieAppStore.movies.length === 1 ? this.setState({ buttonVisibility: true }) : this.setState({ buttonVisibility: false })
@@ -94,9 +93,7 @@ class MovieModalContainer extends React.Component {
     render() {
         const { isOpen, isLoading, closeMovieModal, movies } = this.props.MovieAppStore;
         const movie = this.props.MovieAppStore.updateMoviePicturesUrls(this.props.MovieAppStore.movie);
-        const renderMovies = movies;
-
-        // const renderMovies = movies && movies.length ? movies : movieHelpers.getMoviesList(moviesList.response);
+        const renderMovies = this.props.favMovies && this.props.favMovies ? this.props.favMovies : movies;
 
         return (
             <div>

@@ -54,6 +54,7 @@ class MovieStore {
     @action closeMovieModal = () => {
         this.isOpen = false;
     }
+    
 
     @action getMovieDetails = async (movieId) => {
         this.isOpen = true;

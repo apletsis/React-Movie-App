@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { observer, inject } from 'mobx-react'
+import { observer, inject } from 'mobx-react';
 
 @inject("MovieAppStore")
 @observer
