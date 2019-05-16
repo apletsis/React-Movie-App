@@ -10,29 +10,13 @@ import MovieModal from '../containers/movie-modal.container';
 @observer
 class MovieApp extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            activePage: 1,
-            totalMovies: 0
-        };
-    }
-
     async componentDidMount () {
-        const { MovieAppStore } = this.props;
-        const responseCallback = await MovieAppStore.getNowPlaying(this.state.activePage);
-        this.setState({ totalMovies: responseCallback });
-    }
-
-    handlePageChange = async (pageNumber) => {
-        const { MovieAppStore } = this.props;
-        await MovieAppStore.clearMoviesList();
-        await MovieAppStore.getNowPlaying(pageNumber);
-        this.setState({ activePage: pageNumber });
+        const { getNowPlaying, activePage } = this.props.MovieAppStore;
+        await getNowPlaying(activePage);
     }
 
     render() {
-        const { movies, isLoading } = this.props.MovieAppStore;
+        const { movies, isLoading, handlePageChange, activePage, totalMovies } = this.props.MovieAppStore;
 
         return(
             <div id="mainContent">
@@ -46,7 +30,7 @@ class MovieApp extends React.Component {
                     </Row>
                 </div>
                 <div className="container-fluid">
-                     <Loader isLoading={isLoading}>
+                     <Loader isLoading={ isLoading }>
                         <MovieListComponent  movies={ movies }/>
                     </Loader>
                     </div>
@@ -66,11 +50,11 @@ class MovieApp extends React.Component {
                                     itemClassLast='last-page'
                                     innerClass='pagination justify-content-center'
                                     activeLinkClass='active-page'
-                                    activePage={this.state.activePage}
-                                    totalItemsCount={this.state.totalMovies}
-                                    itemsCountPerPage={20}
-                                    pageRangeDisplayed={3}
-                                    onChange={this.handlePageChange}
+                                    activePage={ activePage }
+                                    totalItemsCount={ totalMovies }
+                                    itemsCountPerPage={ 20 }
+                                    pageRangeDisplayed={ 3 }
+                                    onChange={ handlePageChange }
                                 />
                             </Col>
                         </Row>
