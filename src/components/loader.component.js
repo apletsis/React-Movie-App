@@ -1,5 +1,5 @@
 import React from 'react';
-import {RefreshIndicator} from 'material-ui'
+import { RefreshIndicator } from 'material-ui'
 
 const styles = {
   refreshStyle: {
@@ -9,7 +9,7 @@ const styles = {
   }
 };
 
-const LoaderComponent = ({isLoading, children}) => {
+const LoaderComponent = ({ isLoading, children }) => {
   if (isLoading) {
     return (
       <RefreshIndicator
@@ -17,7 +17,7 @@ const LoaderComponent = ({isLoading, children}) => {
         top={250}
         left={0}
         size={80}
-        status={'loading'} 
+        status={'loading'}
       />
     );
   }

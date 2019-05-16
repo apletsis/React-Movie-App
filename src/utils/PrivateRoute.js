@@ -6,13 +6,13 @@ import {
 import fakeAuth from './fakeAuth';
 
 function PrivateRoute({ component: Component, ...rest }) {
-    return (
-      <Route
-        {...rest}
-        render={props =>
-          fakeAuth.isAuthenticated ? (
-            <Component {...props} />
-          ) : (
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        fakeAuth.isAuthenticated ? (
+          <Component {...props} />
+        ) : (
             <Redirect
               to={{
                 pathname: "/login",
@@ -20,9 +20,9 @@ function PrivateRoute({ component: Component, ...rest }) {
               }}
             />
           )
-        }
-      />
-    );
+      }
+    />
+  );
 }
 
 export default PrivateRoute;

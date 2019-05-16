@@ -13,7 +13,7 @@ import Login from './utils/Login';
 const Main = () => (
   <main>
     <Switch>
-      <Route exact path='/' component={MovieApp}/>
+      <Route exact path='/' component={MovieApp} />
       <Route path="/login" component={Login} />
       <PrivateRoute path="/favorites" component={MovieFavorites} />
     </Switch>

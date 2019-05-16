@@ -10,7 +10,7 @@ import MovieModal from '../containers/movie-modal.container';
 @observer
 class MovieApp extends React.Component {
 
-    async componentDidMount () {
+    async componentDidMount() {
         const { getNowPlaying, activePage } = this.props.MovieAppStore;
         await getNowPlaying(activePage);
     }
@@ -18,7 +18,7 @@ class MovieApp extends React.Component {
     render() {
         const { movies, isLoading, handlePageChange, activePage, totalMovies } = this.props.MovieAppStore;
 
-        return(
+        return (
             <div id="mainContent">
                 <div className="container-fluid">
                     <Row>
@@ -30,36 +30,36 @@ class MovieApp extends React.Component {
                     </Row>
                 </div>
                 <div className="container-fluid">
-                     <Loader isLoading={ isLoading }>
-                        <MovieListComponent  movies={ movies }/>
+                    <Loader isLoading={isLoading}>
+                        <MovieListComponent movies={movies} />
                     </Loader>
-                    </div>
-                    <div className="container-fluid my-5">
-                        <Row>
-                            <Col>
-                                <Pagination
-                                    hideDisabled
-                                    prevPageText='Prev'
-                                    nextPageText='Next'
-                                    firstPageText='First'
-                                    lastPageText='Last'
-                                    linkClass='page-link'
-                                    linkClassFirst='rounded-left'
-                                    linkClassLast='rounded-right'
-                                    itemClassFirst='first-page'
-                                    itemClassLast='last-page'
-                                    innerClass='pagination justify-content-center'
-                                    activeLinkClass='active-page'
-                                    activePage={ activePage }
-                                    totalItemsCount={ totalMovies }
-                                    itemsCountPerPage={ 20 }
-                                    pageRangeDisplayed={ 3 }
-                                    onChange={ handlePageChange }
-                                />
-                            </Col>
-                        </Row>
-                    </div>
-                    <MovieModal />
+                </div>
+                <div className="container-fluid my-5">
+                    <Row>
+                        <Col>
+                            <Pagination
+                                hideDisabled
+                                prevPageText='Prev'
+                                nextPageText='Next'
+                                firstPageText='First'
+                                lastPageText='Last'
+                                linkClass='page-link'
+                                linkClassFirst='rounded-left'
+                                linkClassLast='rounded-right'
+                                itemClassFirst='first-page'
+                                itemClassLast='last-page'
+                                innerClass='pagination justify-content-center'
+                                activeLinkClass='active-page'
+                                activePage={activePage}
+                                totalItemsCount={totalMovies}
+                                itemsCountPerPage={20}
+                                pageRangeDisplayed={3}
+                                onChange={handlePageChange}
+                            />
+                        </Col>
+                    </Row>
+                </div>
+                <MovieModal />
             </div>
         );
     }

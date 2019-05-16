@@ -13,7 +13,7 @@ class MovieFavorites extends React.Component {
         const movieColumns = favoriteMovies ? favoriteMovies.map(movie => (
             <MovieFavoritesComponent key={movie.id} movie={movie} removeFromFavorites={removeFromFavorites} />
         )) : null;
-        
+
         return (
             <div id="favoritesContent">
                 <div className="container-fluid fav-page-heading">
@@ -26,12 +26,12 @@ class MovieFavorites extends React.Component {
                     </Row>
                 </div>
                 <div className="container-fluid">
-                {
-                    movieColumns && movieColumns.length !== 0 ? movieColumns : 
-                        <div className="text-left favorite-movie">
-                            <h5 className="grid-title">No favorites yet</h5>
-                        </div>
-                }
+                    {
+                        movieColumns && movieColumns.length !== 0 ? movieColumns :
+                            <div className="text-left favorite-movie">
+                                <h5 className="grid-title">No favorites yet</h5>
+                            </div>
+                    }
                 </div>
                 <MovieModal favMovies={favoriteMovies} className="favorites-modal" />
             </div>

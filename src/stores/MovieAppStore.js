@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 import { isNullOrUndefined } from 'util';
 
 const MOVIE_DB_API_KEY = "ebea8cfca72fdff8d2624ad7bbf78e4c";
